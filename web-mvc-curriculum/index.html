@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Project description goes here." />
+		<title>Project</title>
+
+		<!-- No-flash theme init: must run BEFORE stylesheets -->
+		<script>
+			(function () {
+				var saved = localStorage.getItem("theme");
+				document.documentElement.dataset.theme = saved || "dark";
+			})();
+		</script>
+
+		<!-- Design system foundation -->
+		<link rel="stylesheet" href="./design-system/tokens/index.css" />
+		<link rel="stylesheet" href="./design-system/base/reset.css" />
+		<link rel="stylesheet" href="./design-system/base/base.css" />
+		<link rel="stylesheet" href="./design-system/primitives/index.css" />
+		<link rel="stylesheet" href="./design-system/components/index.css" />
+		<link rel="stylesheet" href="./design-system/compositions/index.css" />
+		<link rel="stylesheet" href="./design-system/utilities/index.css" />
+
+		<!-- Project-specific styles -->
+		<link rel="stylesheet" href="./src/styles/main.css" />
+	</head>
+	<body>
+		<a class="skip-link" href="#main">Skip to content</a>
+		<div id="app"></div>
+
+		<!-- Theme behavior (click handler — init already done above) -->
+		<script src="./design-system/theme/theme-toggle.js"></script>
+
+		<!-- Model -->
+		<script src="./src/model/model.js"></script>
+
+		<!-- Utilities / components -->
+		<script src="./src/utilities/header.js"></script>
+
+		<!-- Views -->
+		<script src="./src/view/homeView.js"></script>
+		<script src="./src/view/notFoundView.js"></script>
+
+		<!-- Controller -->
+		<script src="./src/controller/mainController.js"></script>
+
+		<!-- App -->
+		<script src="./src/app.js"></script>
+	</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Project description goes here." />
+		<title>Project</title>
+
+		<!-- No-flash theme init: must run BEFORE stylesheets -->
+		<script>
+			(function () {
+				var saved = localStorage.getItem("theme");
+				document.documentElement.dataset.theme = saved || "dark";
+			})();
+		</script>
+
+		<!-- Design system foundation -->
+		<link rel="stylesheet" href="./design-system/tokens/index.css" />
+		<link rel="stylesheet" href="./design-system/base/reset.css" />
+		<link rel="stylesheet" href="./design-system/base/base.css" />
+		<link rel="stylesheet" href="./design-system/primitives/index.css" />
+		<link rel="stylesheet" href="./design-system/components/index.css" />
+		<link rel="stylesheet" href="./design-system/compositions/index.css" />
+		<link rel="stylesheet" href="./design-system/utilities/index.css" />
+
+		<!-- Project-specific styles -->
+		<link rel="stylesheet" href="./src/styles/main.css" />
+	</head>
+	<body>
+		<a class="skip-link" href="#main">Skip to content</a>
+
+		<header class="page-header section">
+			<div class="container">
+				<div class="cluster-between">
+					<h1 class="title">Project</h1>
+					<button
+						type="button"
+						class="btn icon-btn"
+						data-theme-toggle
+						aria-label="Toggle light and dark theme"
+					>
+						<span aria-hidden="true">◐</span>
+					</button>
+				</div>
+			</div>
+		</header>
+
+		<main id="main" class="section">
+			<div class="container stack-lg">
+				<section class="card stack">
+					<h2>Welcome</h2>
+					<p>
+						This is a static starter using the design system. Edit
+						<code>index.html</code> for content and
+						<code>src/styles/main.css</code> for project-specific styles.
+					</p>
+					<div class="cluster">
+						<button type="button" class="btn btn-primary">Primary</button>
+						<button type="button" class="btn">Secondary</button>
+						<button type="button" class="btn btn-ghost">Ghost</button>
+					</div>
+				</section>
+
+				<section class="card stack">
+					<h3>What's included</h3>
+					<ul class="stack-sm">
+						<li>Dark-mode-first with working light-mode toggle (no flash)</li>
+						<li>Mobile-first responsive baseline</li>
+						<li>Accessible focus rings, reduced-motion, forced-colors handling</li>
+						<li>Skip link for keyboard users</li>
+						<li>Design system tokens, primitives, components, compositions</li>
+					</ul>
+				</section>
+			</div>
+		</main>
+
+		<!-- Theme behavior (click handler — init already done in head) -->
+		<script src="./design-system/theme/theme-toggle.js"></script>
+
+		<!-- Project scripts -->
+		<script src="./src/js/app.js"></script>
+	</body>
+</html>

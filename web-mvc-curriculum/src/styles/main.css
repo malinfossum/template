@@ -1,0 +1,35 @@
+/*
+Project-specific styles only.
+Rule:
+- prefer tokens, primitives, components, and compositions first
+- add CSS here only when the design system does not already solve it
+*/
+
+body {
+	min-height: 100vh;
+}
+
+#app {
+	min-height: 100vh;
+}
+
+.main-shell {
+	padding-block: var(--space-6);
+}
+
+.brand-button {
+	border: 0;
+	padding: 0;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	cursor: pointer;
+}
+
+.hero {
+	align-items: start;
+}
+
+.empty-state-card {
+	max-width: 32rem;
+}

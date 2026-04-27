@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Malin Design System Showcase</title>
+    <link rel="stylesheet" href="../design-system/tokens/index.css" />
+    <link rel="stylesheet" href="../design-system/base/reset.css" />
+    <link rel="stylesheet" href="../design-system/base/base.css" />
+    <link rel="stylesheet" href="../design-system/primitives/index.css" />
+    <link rel="stylesheet" href="../design-system/components/index.css" />
+    <link rel="stylesheet" href="../design-system/compositions/index.css" />
+    <link rel="stylesheet" href="../design-system/utilities/index.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="container cluster-between">
+          <a class="brand" href="../index.html">Malin System</a>
+          <button class="btn btn-ghost" data-theme-toggle type="button">Toggle theme</button>
+        </div>
+      </header>
+
+      <main class="main-shell container stack-xl">
+        <section class="stack-lg">
+          <div class="stack">
+            <p class="eyebrow">Showcase</p>
+            <h1>System overview</h1>
+            <p>Reference page for spacing, components, layouts, and composition patterns.</p>
+          </div>
+        </section>
+
+        <section class="stack-lg">
+          <h2>Buttons</h2>
+          <div class="cluster">
+            <button class="btn btn-primary" type="button">Primary</button>
+            <button class="btn btn-secondary" type="button">Secondary</button>
+            <button class="btn btn-ghost" type="button">Ghost</button>
+            <button class="btn btn-danger" type="button">Danger</button>
+          </div>
+        </section>
+
+        <section class="grid grid-auto">
+          <article class="card stack panel-hover card-hover">
+            <h3>Card</h3>
+            <p>Base reusable surface for content blocks.</p>
+            <span class="badge badge-accent">Reusable</span>
+          </article>
+          <article class="card stack">
+            <h3>Alert</h3>
+            <div class="alert alert-info">
+              <strong class="text-strong">Info state</strong>
+              <p>Use alerts for feedback, not for decoration.</p>
+            </div>
+          </article>
+          <article class="card stack">
+            <h3>Input</h3>
+            <label class="field">
+              <span class="label">Project name</span>
+              <input class="input" placeholder="Inventory filler" />
+              <span class="help">Keep labels visible and controls roomy.</span>
+            </label>
+          </article>
+        </section>
+
+        <section class="stack-lg">
+          <h2>Stats and table</h2>
+          <div class="kpi-row">
+            <article class="card stat">
+              <strong class="stat-value">6</strong>
+              <span class="stat-label">Layout primitives</span>
+            </article>
+            <article class="card stat">
+              <strong class="stat-value">10+</strong>
+              <span class="stat-label">Core components</span>
+            </article>
+            <article class="card stat">
+              <strong class="stat-value">100%</strong>
+              <span class="stat-label">Same token names in both themes</span>
+            </article>
+          </div>
+
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr><th>Layer</th><th>Purpose</th><th>Rule</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Tokens</td><td>Shared values</td><td>No raw values in components</td></tr>
+                <tr><td>Primitives</td><td>Layout patterns</td><td>Use stack before margins</td></tr>
+                <tr><td>Components</td><td>Reusable UI</td><td>Stay generic</td></tr>
+                <tr><td>Compositions</td><td>Real page patterns</td><td>Use when repeated across projects</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="empty-state stack">
+          <h2>No clutter, no guessing</h2>
+          <p>Use the docs to keep spacing, radius, motion, and component decisions consistent.</p>
+          <div class="cluster" style="justify-content:center">
+            <a class="btn btn-primary" href="../docs/system-spec.md">Open spec</a>
+            <a class="btn btn-secondary" href="../docs/component-rules.md">Component rules</a>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="../design-system/theme/theme-toggle.js"></script>
+  </body>
+</html>

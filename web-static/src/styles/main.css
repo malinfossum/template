@@ -1,0 +1,27 @@
+/*
+ * Project-specific styles.
+ * Override design-system values here. Never edit design-system/ directly.
+ *
+ * Mobile-first: baseline rules target the smallest screen.
+ * Use @media (min-width: ...) to layer up. No max-width queries.
+ */
+
+.page-header {
+	border-bottom: 1px solid var(--line);
+}
+
+.page-header .title {
+	font-size: var(--text-2xl);
+}
+
+@media (min-width: 768px) {
+	.page-header .title {
+		font-size: var(--text-3xl);
+	}
+}
+
+@media (min-width: 1024px) {
+	.page-header .title {
+		font-size: var(--text-4xl);
+	}
+}
