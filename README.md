@@ -1,24 +1,28 @@
 # Template
 
-A reusable starting point for web projects. Three scaffolds, one shared design system. Dark-mode-first, mobile-first, accessible by default.
-
-## What you get out of the box
-
-- Three self-contained scaffolds — pick the one that fits and start coding
-- Shared design system (tokens, primitives, components, compositions, utilities, theme)
-- No-flash dark/light theme toggle that persists across sessions
-- Mobile-first responsive baseline (no `max-width` queries to flip)
-- Accessibility defaults — visible focus rings, reduced-motion handling, forced-colors mode, skip link
+Reusable starter scaffolds for web and C# projects. Pick one, copy it, start coding.
 
 ## Pick a scaffold
 
+### Web
+
 | Scaffold | Use it for | Build step |
 |---|---|---|
-| [`web-mvc-curriculum/`](./web-mvc-curriculum) | Coursework, non-module MVC assignments | None |
-| [`web-vite/`](./web-vite) | Personal projects, anything that benefits from a build | `npm install` |
+| [`web-mvc-curriculum/`](./web-mvc-curriculum) | JS coursework, non-module MVC | None |
+| [`web-vite/`](./web-vite) | Personal web projects, anything that benefits from a build | `npm install` |
 | [`web-static/`](./web-static) | Smallest assignments, quick visual demos | None |
 
-Each scaffold has its own `README.md` with the first 5 setup steps.
+The web scaffolds share `design-system/` (tokens, primitives, components, theme) and ship a no-flash dark/light toggle, mobile-first responsive baseline, and accessibility defaults — visible focus rings, reduced-motion handling, forced-colors mode, skip link.
+
+### C#
+
+| Scaffold | Use it for | Build step |
+|---|---|---|
+| [`csharp-console-mvc/`](./csharp-console-mvc) | C# coursework — solution with class library, console front-end, NUnit | `dotnet build` |
+
+C# scaffolds are independent of the web design system. A future `csharp-wpf/` scaffold will mirror palette, spacing, and typography tokens via `tokens.xaml`.
+
+Each scaffold has its own `README.md` with the first 5 setup steps and conventions.
 
 ## How to use this template
 
@@ -35,20 +39,13 @@ Each scaffold has its own `README.md` with the first 5 setup steps.
 1. Copy the scaffold folder you want to wherever the new project lives
 2. Open the project's `README.md` for the first 5 setup steps
 
-## Design system
+## Design system (web)
 
-The shared `design-system/` lives at the top level and is the canonical source of truth. Each scaffold ships a copy of it (lean — no showcase or docs) so you only need one folder copy to start.
+The shared `design-system/` lives at the top level and is the canonical source of truth for the web scaffolds. Each web scaffold ships a copy (lean — no showcase or docs) so a single folder copy is enough to start.
 
-When the system improves, edit the canonical `design-system/` and sync the lean parts (`tokens/`, `base/`, `primitives/`, `components/`, `compositions/`, `utilities/`, `theme/`) into each scaffold.
+When the system improves, edit the canonical `design-system/` and sync the lean parts (`tokens/`, `base/`, `primitives/`, `components/`, `compositions/`, `utilities/`, `theme/`) into each web scaffold.
 
 See [`design-system/README.md`](./design-system/README.md) for principles and structure. Current version: see `design-system/VERSION`.
-
-## Project conventions
-
-- **Mobile-first CSS.** Baseline styles target the smallest screen. Layer up with `@media (min-width: 768px)` for tablet and `1024px` for desktop. No `max-width` queries.
-- **Dark mode is the default.** A working light-mode toggle is wired up. User's choice persists in `localStorage`.
-- **MVC separation.** Model holds state. View renders HTML. Controller owns behavior. Each layer has its own folder in the scaffolds that use MVC.
-- **Treat `design-system/` as read-only inside any project.** Override in `src/styles/main.css`.
 
 ## License
 
