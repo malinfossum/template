@@ -1,0 +1,39 @@
+# csharp-console-mvc
+
+C# starter for Emne 3 and general OOP work. Solution with a class library, a console front-end, and an NUnit test project.
+
+Use this for: Claim the Square, Studentadministrasjon, Lagerstyringssystem, Bossfight, and any console-based C# assignment.
+
+## Folder structure
+
+- `App.Core/` — domain model and rules. No `Console`, no `File`, no IO.
+- `App.Console/` — `Program.cs` only. Calls into `App.Core`.
+- `App.Tests/` — NUnit. References `App.Core` only, never `App.Console`.
+
+## First 5 steps in a new project
+
+1. Copy this folder to wherever the project lives.
+2. Rename `App.slnx` and each `App.*` project + folder to `<YourName>.*` (find/replace `App.` across files).
+3. Run `dotnet restore && dotnet build && dotnet test`.
+4. Open `App.slnx` in Visual Studio 2026.
+5. Start writing domain types in `App.Core/Models/`. Wire them from `Program.cs`.
+
+## Working rules
+
+- State, rules, and pure logic live in `App.Core`. If a class needs `Console.WriteLine` or `File.ReadAllText`, it belongs in `App.Console`, not `App.Core`.
+- `App.Tests` references `App.Core` only. If something can't be unit-tested without IO, it doesn't belong in `App.Core`.
+- `dotnet format` is the formatter (see `.editorconfig`). VS 2026 runs it on save.
+
+## Adding an Api project later (Uke 5+)
+
+```powershell
+dotnet new webapi -n App.Api
+dotnet sln add App.Api/App.Api.csproj
+dotnet add App.Api/App.Api.csproj reference App.Core/App.Core.csproj
+```
+
+## What's deliberately not here
+
+- No DI container — add `Microsoft.Extensions.DependencyInjection` when Uke 8 (SRP/DIP) calls for it.
+- No Api project — add on demand.
+- No async, no JSON serialization — added per assignment.
