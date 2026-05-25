@@ -8,19 +8,18 @@ Reusable starter scaffolds for web and C# projects. Pick one, copy it, start cod
 
 | Scaffold | Use it for | Build step |
 |---|---|---|
-| [`web-mvc-curriculum/`](./web-mvc-curriculum) | JS coursework, non-module MVC | None |
-| [`web-vite/`](./web-vite) | Personal web projects, anything that benefits from a build | `npm install` |
-| [`web-static/`](./web-static) | Smallest assignments, quick visual demos | None |
+| [`web-vite/`](./web-vite) | Web projects — anything that benefits from a build | `npm install` |
 
-The web scaffolds share `design-system/` (tokens, primitives, components, theme) and ship a no-flash dark/light toggle, mobile-first responsive baseline, and accessibility defaults — visible focus rings, reduced-motion handling, forced-colors mode, skip link.
+The web scaffold ships `design-system/` (tokens, primitives, components, theme), a no-flash dark/light toggle, a mobile-first responsive baseline, and accessibility defaults — visible focus rings, reduced-motion handling, forced-colors mode, skip link.
 
 ### C#
 
 | Scaffold | Use it for | Build step |
 |---|---|---|
+| [`csharp-console/`](./csharp-console) | A single-project console app — `init.sh` auto-injects editor configs | `dotnet build` |
 | [`csharp-console-mvc/`](./csharp-console-mvc) | C# coursework — solution with class library, console front-end, NUnit | `dotnet build` |
 
-C# scaffolds are independent of the web design system. A future `csharp-wpf/` scaffold will mirror palette, spacing, and typography tokens via `tokens.xaml`.
+C# scaffolds are independent of the web design system. `csharp-wpf/` is a planned stub (editor config only — not yet a working project), intended to later mirror palette, spacing, and typography tokens via `tokens.xaml`.
 
 Each scaffold has its own `README.md` with the first 5 setup steps and conventions.
 
@@ -41,9 +40,9 @@ Each scaffold has its own `README.md` with the first 5 setup steps and conventio
 
 ## Design system (web)
 
-The shared `design-system/` lives at the top level and is the canonical source of truth for the web scaffolds. Each web scaffold ships a copy (lean — no showcase or docs) so a single folder copy is enough to start.
+The shared `design-system/` lives at the top level and is the canonical source of truth for the web scaffold. `web-vite/` ships a lean copy (no showcase or docs) so a single folder copy is enough to start.
 
-When the system improves, edit the canonical `design-system/` and sync the lean parts (`tokens/`, `base/`, `primitives/`, `components/`, `compositions/`, `utilities/`, `theme/`) into each web scaffold.
+When the system improves, edit the canonical `design-system/` and sync the lean parts (`tokens/`, `base/`, `primitives/`, `components/`, `compositions/`, `utilities/`, `theme/`) into `web-vite/`.
 
 See [`design-system/README.md`](./design-system/README.md) for principles and structure. Current version: see `design-system/VERSION`.
 
