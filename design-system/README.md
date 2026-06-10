@@ -4,6 +4,16 @@ Reusable UI foundation. Tokens, primitives, components, compositions, utilities,
 
 Current version: see `VERSION`.
 
+## Local preview
+
+Serve the folder over HTTP — opening the files directly via `file://` (double-click) won't load the linked CSS/JS, so the page renders blank. From this folder:
+
+```powershell
+python -m http.server 8099
+```
+
+Then open <http://localhost:8099/gallery/> — or `/sandbox/` for the scratch page.
+
 ## Principles
 
 - True-black dark mode with restrained, damped accent color
@@ -18,11 +28,12 @@ Current version: see `VERSION`.
 - `tokens/` — colors, spacing, typography, radius, shadows, motion, layers (the values)
 - `base/` — `reset.css` and `base.css` (HTML defaults, focus rings, reduced motion, forced colors, skip link)
 - `primitives/` — layout helpers (`stack`, `cluster`, `grid`, `sidebar`, `split`, `center`, `container`)
-- `components/` — `button`, `card`, `input`, `nav`, `modal`, `alert`, `badge`, `progress`, `stat`, `table`
+- `components/` — `button`, `card`, `input`, `nav`, `modal`, `alert`, `badge`, `progress`, `stat`, `table`, `toast`, `tabs`, `skeleton`
 - `compositions/` — page patterns (`app-shell`, `dashboard`, `settings`, `hero`, `empty-state`)
 - `utilities/` — single-purpose helpers
 - `theme/` — `theme-toggle.js` (click handler) and `theme-init-snippet.html` (inline `<head>` snippet)
-- `showcase/` — visual reference page
+- `gallery/` — panel-swap MVC reference (browse every component live)
+- `sandbox/` — scratch page for quick experiments
 - `docs/` — system spec and usage notes
 
 ## Theme behavior

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sandbox — Malin Design System</title>
+    <link rel="stylesheet" href="../tokens/index.css" />
+    <link rel="stylesheet" href="../base/reset.css" />
+    <link rel="stylesheet" href="../base/base.css" />
+    <link rel="stylesheet" href="../primitives/index.css" />
+    <link rel="stylesheet" href="../components/index.css" />
+    <link rel="stylesheet" href="../compositions/index.css" />
+    <link rel="stylesheet" href="../utilities/index.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container cluster-between">
+        <a class="brand" href="../gallery/index.html">← Gallery</a>
+        <button class="btn btn-ghost" data-theme-toggle type="button">Toggle theme</button>
+      </div>
+    </header>
+
+    <main class="container stack stack-lg" style="padding-block: var(--space-6)">
+      <!-- ============================================================ -->
+      <!-- SCRATCH HERE. Drop any markup below; the design system styles -->
+      <!-- it instantly. Nothing here is committed or synced.            -->
+      <!-- ============================================================ -->
+
+      <section class="stack">
+        <p class="eyebrow">Sandbox</p>
+        <h1>Scratch space</h1>
+        <p>Edit this file freely. Try component combos, new ideas, anything.</p>
+      </section>
+
+      <!-- Cascade test fixtures (used to verify the channel-token fix) -->
+      <section class="cluster">
+        <button class="btn btn-primary" type="button">Primary</button>
+        <button class="btn btn-secondary" type="button">Secondary</button>
+        <button class="btn btn-danger" type="button">Danger</button>
+        <span class="badge badge-accent">accent</span>
+        <span class="badge badge-success">success</span>
+      </section>
+
+      <!-- v1.1 component demos — preview only. These get a permanent home in the
+           gallery (Task 7); clear this whole block anytime, it's just scratch. -->
+      <section class="stack stack-lg">
+        <h2>New components (v1.1)</h2>
+
+        <div class="stack">
+          <h3>Skeleton</h3>
+          <div class="grid grid-auto">
+            <div class="skeleton skeleton-card"></div>
+            <div class="stack">
+              <div class="skeleton skeleton-text" style="width: 70%"></div>
+              <div class="skeleton skeleton-text"></div>
+              <div class="skeleton skeleton-text" style="width: 40%"></div>
+              <div class="skeleton skeleton-circle"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack">
+          <h3>Toast</h3>
+          <div class="stack">
+            <div class="toast toast-info" role="status" aria-live="polite">Heads up — info message.</div>
+            <div class="toast toast-success" role="status" aria-live="polite">Saved successfully.</div>
+            <div class="toast toast-danger" role="status" aria-live="polite">Something went wrong.</div>
+          </div>
+        </div>
+
+        <div class="stack">
+          <h3>Tabs</h3>
+          <div class="tabs">
+            <div class="tab-list" role="tablist">
+              <button class="tab" role="tab" aria-selected="true" type="button">Overview</button>
+              <button class="tab" role="tab" aria-selected="false" type="button">Details</button>
+              <button class="tab" role="tab" aria-selected="false" type="button">Activity</button>
+            </div>
+            <div class="tab-panel" role="tabpanel">Overview panel — the selected tab's content.</div>
+            <div class="tab-panel" role="tabpanel" hidden>Details panel.</div>
+            <div class="tab-panel" role="tabpanel" hidden>Activity panel.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Half-built experiment: a "mini stat tile" idea, not yet a component -->
+      <section class="card stack" style="max-width: 16rem">
+        <span class="stat-label">Experiment</span>
+        <strong class="stat-value">A future idea</strong>
+        <p class="text-muted">Prototype here before promoting to a real component.</p>
+      </section>
+    </main>
+
+    <script src="../theme/theme-toggle.js"></script>
+    <script>
+      // Minimal tabs behavior (formalized in the gallery later): click a tab to
+      // select it and reveal its matching panel.
+      document.addEventListener("click", (e) => {
+        const tab = e.target.closest('[role="tab"]');
+        if (!tab) return;
+        const list = tab.closest('[role="tablist"]');
+        const tabs = [...list.querySelectorAll('[role="tab"]')];
+        const panels = [...list.parentElement.querySelectorAll('[role="tabpanel"]')];
+        tabs.forEach((t, i) => {
+          const selected = t === tab;
+          t.setAttribute("aria-selected", String(selected));
+          if (panels[i]) panels[i].hidden = !selected;
+        });
+      });
+    </script>
+  </body>
+</html>

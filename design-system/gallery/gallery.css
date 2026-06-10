@@ -1,0 +1,104 @@
+.gallery {
+	min-height: 100dvh;
+}
+
+.gallery-sidebar {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-4);
+	padding: var(--space-4);
+	background: var(--panel-bg);
+	border-bottom: 1px solid var(--border);
+}
+.gallery-brand {
+	font-weight: 700;
+	letter-spacing: -0.02em;
+	color: var(--text);
+	padding-inline: var(--space-2);
+}
+.gallery-nav {
+	display: flex;
+	gap: var(--space-1);
+	overflow-x: auto;
+}
+.nav-item {
+	white-space: nowrap;
+	padding: var(--space-2) var(--space-3);
+	background: transparent;
+	border: 0;
+	border-radius: var(--radius-sm);
+	color: var(--text-muted);
+	cursor: pointer;
+	text-decoration: none;
+	font: inherit;
+	text-align: start;
+}
+.nav-item:hover {
+	color: var(--text);
+}
+.nav-item[aria-current="true"] {
+	background: var(--accent-soft);
+	color: var(--text);
+}
+
+.gallery-main {
+	max-width: 64rem;
+	padding: var(--space-6);
+	padding-block-end: var(--space-8);
+}
+
+/* Content presentation */
+.panel-head {
+	padding-block-end: var(--space-4);
+	border-bottom: 1px solid var(--border);
+}
+.panel-title {
+	font-size: var(--text-3xl);
+	line-height: var(--leading-tight);
+}
+.specimen-head h3 {
+	font-size: var(--text-lg);
+}
+.spec-class {
+	font-family: var(--font-mono);
+	font-size: var(--text-xs);
+	color: var(--text-muted);
+	background: var(--surface-3);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-sm);
+	padding: 0.15rem 0.45rem;
+}
+.swatch {
+	height: 3.5rem;
+	border-radius: var(--radius-md);
+	border: 1px solid var(--border);
+}
+.stage {
+	padding: var(--space-6);
+	border: 1px solid var(--border);
+	border-radius: var(--radius-lg);
+	background: var(--surface-1);
+}
+
+@media (min-width: 768px) {
+	.gallery {
+		display: grid;
+		grid-template-columns: 16rem 1fr;
+		align-items: start;
+	}
+	.gallery-sidebar {
+		position: sticky;
+		inset-block-start: 0;
+		min-height: 100dvh;
+		border-bottom: 0;
+		border-inline-end: 1px solid var(--border);
+	}
+	.gallery-nav {
+		flex-direction: column;
+		overflow-x: visible;
+	}
+	.gallery-main {
+		padding: var(--space-7);
+		padding-block-end: var(--space-9);
+	}
+}

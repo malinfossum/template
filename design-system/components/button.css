@@ -24,23 +24,23 @@
 }
 .btn-primary {
 	background: var(--accent-soft);
-	border-color: rgba(124, 154, 179, 0.22);
+	border-color: rgb(var(--accent-rgb) / 22%);
 	color: var(--text);
 }
 .btn-primary:hover {
-	background: rgba(124, 154, 179, 0.2);
-	border-color: rgba(144, 173, 197, 0.3);
+	background: rgb(var(--accent-rgb) / 20%);
+	border-color: rgb(var(--accent-strong-rgb) / 30%);
 }
 .btn-secondary {
 	background: var(--secondary-soft);
-	border-color: rgba(160, 143, 120, 0.24);
+	border-color: rgb(var(--secondary-rgb) / 24%);
 }
 .btn-ghost {
 	background: transparent;
 }
 .btn-danger {
 	background: var(--danger-soft);
-	border-color: rgba(161, 131, 127, 0.24);
+	border-color: rgb(var(--danger-rgb) / 24%);
 }
 .btn-full {
 	width: 100%;
