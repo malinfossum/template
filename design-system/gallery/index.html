@@ -1,8 +1,15 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="dark" data-palette="default">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        var root = document.documentElement;
+        root.dataset.theme = localStorage.getItem("theme") || "dark";
+        root.dataset.palette = localStorage.getItem("palette") || "default";
+      })();
+    </script>
     <title>Malin Design System — Gallery</title>
     <link rel="stylesheet" href="../tokens/index.css" />
     <link rel="stylesheet" href="../base/reset.css" />
@@ -16,15 +23,21 @@
   <body>
     <div class="gallery">
       <aside class="gallery-sidebar">
-        <div class="cluster-between">
-          <span class="gallery-brand">Malin DS</span>
+        <span class="gallery-brand">Design System <span class="gallery-brand-by">by Malin</span></span>
+        <div class="gallery-controls">
           <button class="btn btn-ghost" data-theme-toggle type="button">Theme</button>
+          <div class="gallery-palettes" role="group" aria-label="Palette">
+            <button class="btn btn-ghost" data-palette-set="default" type="button">Default</button>
+            <button class="btn btn-ghost" data-palette-set="gold" type="button">Gold</button>
+            <button class="btn btn-ghost" data-palette-set="wend" type="button">Wend</button>
+          </div>
         </div>
         <nav id="gallery-nav" class="gallery-nav" aria-label="Components"></nav>
       </aside>
       <main id="panel" class="gallery-main stack stack-xl"></main>
     </div>
     <script src="../theme/theme-toggle.js"></script>
+    <script src="../theme/palette-switch.js"></script>
     <script src="./sections.js"></script>
     <script src="./model.js"></script>
     <script src="./view.js"></script>

@@ -11,10 +11,44 @@
 	border-bottom: 1px solid var(--border);
 }
 .gallery-brand {
-	font-weight: 700;
-	letter-spacing: -0.02em;
-	color: var(--text);
+	display: flex;
+	flex-direction: column;
+	font-family: var(--font-display);
+	font-size: var(--text-2xl);
+	font-weight: 600;
+	line-height: var(--leading-tight);
+	color: #e3b341; /* fixed gold — the brand mark stays gold across palettes */
 	padding-inline: var(--space-2);
+}
+.gallery-brand-by {
+	font-size: var(--text-sm);
+	font-weight: 400;
+	color: #b8924f;
+}
+
+.gallery-controls {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-2);
+}
+.gallery-controls [data-theme-toggle] {
+	width: 100%;
+}
+.gallery-palettes {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: var(--space-1);
+}
+.gallery-palettes .btn {
+	width: 100%;
+}
+
+/* Palette switcher — active button highlights from <html data-palette>, no JS state */
+[data-palette="default"] .gallery-palettes [data-palette-set="default"],
+[data-palette="gold"] .gallery-palettes [data-palette-set="gold"],
+[data-palette="wend"] .gallery-palettes [data-palette-set="wend"] {
+	background: var(--accent-soft);
+	color: var(--text);
 }
 .gallery-nav {
 	display: flex;
