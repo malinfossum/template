@@ -21,6 +21,6 @@ desktop.ini
 npm-debug.log*
 
 # Internal — local only, not part of the public template
-_archive/
-_reference/
+Archive/
+Reference/
 design-system-lab/
