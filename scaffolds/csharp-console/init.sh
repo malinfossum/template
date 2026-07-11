@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Usage: run from inside a freshly `dotnet new console` directory.
-#   bash ~/Documents/Development/template/scaffolds/csharp-console/init.sh
+#   bash ~/Documents/Development/workbench/scaffolds/csharp-console/init.sh
 #
 # Auto-detects project name and TargetFramework from the .csproj in the
 # current directory, copies VS Code editor configs in, and

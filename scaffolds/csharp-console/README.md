@@ -11,7 +11,7 @@ dotnet new console -n MyProject -o my-project
 cd my-project
 
 # 2. Initialize editor configs (auto-detects project name and TFM from .csproj)
-bash ~/Documents/Development/template/scaffolds/csharp-console/init.sh
+bash ~/Documents/Development/workbench/scaffolds/csharp-console/init.sh
 
 # 3. Open and run
 code .   # then press F5
@@ -28,7 +28,7 @@ code .   # then press F5
 Add to `~/.bashrc` so `init.sh` is one word:
 
 ```bash
-alias new-csharp='bash ~/Documents/Development/template/scaffolds/csharp-console/init.sh'
+alias new-csharp='bash ~/Documents/Development/workbench/scaffolds/csharp-console/init.sh'
 ```
 
 Then the full workflow becomes: `dotnet new console -n MyProject -o my-project && cd my-project && new-csharp`.
