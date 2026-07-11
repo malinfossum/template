@@ -4,7 +4,7 @@
    - This file only boots the app.
    ====================================================================== */
 
-import "./styles/style.css"
+import "./styles/main.css"
 import { createApp } from "./app.js"
 
 createApp()
