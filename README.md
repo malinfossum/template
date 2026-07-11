@@ -1,50 +1,48 @@
-# Template
+# Workbench
 
-Reusable starter scaffolds for web and C# projects. Pick one, copy it, start coding.
+One canonical home for reusable libraries and copy-to-start scaffolds. Libraries are edited here and extracted into projects; scaffolds are copied once and owned by the project.
+
+**Front door:** [`index.html`](./index.html) — the dashboard GitHub Pages serves, linking every tier.
+
+## Structure
+
+| Tier | What it is |
+|---|---|
+| [`libraries/`](./libraries) | Canonical, versioned, reused as-is: `design-system/` (and `storyboard/`, reserved) |
+| [`scaffolds/`](./scaffolds) | Starters you copy once to begin a project, then own |
+| [`tools/`](./tools) | `extract.mjs` — copies libraries into consuming projects |
+| [`docs/`](./docs) | Specs, plans, and workbench notes |
+
+App content — screens, flows, data — never lives here. It lives in the project you spin up from a scaffold.
 
 ## Pick a scaffold
 
-### Web
-
 | Scaffold | Use it for | Build step |
 |---|---|---|
-| [`web-vite/`](./web-vite) | Web projects — anything that benefits from a build | `npm install` |
+| [`scaffolds/web-vite/`](./scaffolds/web-vite) | Web projects — vanilla-JS MVC, Vite + Biome | `npm install` |
+| [`scaffolds/csharp-console/`](./scaffolds/csharp-console) | Single-project console app — `init.sh` injects editor configs | `dotnet build` |
+| [`scaffolds/csharp-console-mvc/`](./scaffolds/csharp-console-mvc) | Solution with class library, console front-end, NUnit | `dotnet build` |
+| [`scaffolds/csharp-wpf/`](./scaffolds/csharp-wpf) | WPF/MVVM (in progress) | — |
 
-The web scaffold ships `design-system/` (tokens, primitives, components, theme), a no-flash dark/light toggle, a mobile-first responsive baseline, and accessibility defaults — visible focus rings, reduced-motion handling, forced-colors mode, skip link.
+The web scaffold ships a bundled copy of the design system, a no-flash dark/light toggle, a mobile-first responsive baseline, and accessibility defaults. Each scaffold's `README.md` has the first setup steps.
 
-### C#
+## Reuse a library
 
-| Scaffold | Use it for | Build step |
-|---|---|---|
-| [`csharp-console/`](./csharp-console) | A single-project console app — `init.sh` auto-injects editor configs | `dotnet build` |
-| [`csharp-console-mvc/`](./csharp-console-mvc) | C# coursework — solution with class library, console front-end, NUnit | `dotnet build` |
+Libraries live in `libraries/`. Copy one into any project (web or C#) with the extract tool:
 
-C# scaffolds are independent of the web design system. `csharp-wpf/` is a planned stub (editor config only — not yet a working project), intended to later mirror palette, spacing, and typography tokens via `tokens.xaml`.
+```bash
+node tools/extract.mjs design-system ../my-app            # → ../my-app/design-system
+node tools/extract.mjs design-system ../my-api/wwwroot    # into a C# wwwroot
+node tools/extract.mjs design-system ../my-app --check    # is my copy stale?
+```
 
-Each scaffold has its own `README.md` with the first 5 setup steps and conventions.
+The tool copies only the lean parts, records the version, and refuses to overwrite files you've edited locally (pass `--force` to override). Edit a library **in the workbench**, never in a consuming project, then re-run extract.
 
-## How to use this template
+One rule for consumers: exclude the copied `design-system/` from your formatter (Biome: `"!design-system"` in `files.includes` — the web scaffold already ships this), so format hooks don't count as local edits.
 
-### From GitHub (recommended)
+## Design system
 
-1. Click **Use this template** → **Create a new repository**
-2. Clone the new repo locally
-3. Delete the scaffolds you don't need (keep one)
-4. Move the contents of the kept scaffold up to the project root if you prefer a flat layout
-5. Open the scaffold's `README.md` for the next steps
-
-### Locally (this folder on disk)
-
-1. Copy the scaffold folder you want to wherever the new project lives
-2. Open the project's `README.md` for the first 5 setup steps
-
-## Design system (web)
-
-The shared `design-system/` lives at the top level and is the canonical source of truth for the web scaffold. `web-vite/` ships a lean copy (no gallery, sandbox, or docs) so a single folder copy is enough to start.
-
-When the system improves, edit the canonical `design-system/` and sync the lean parts (`tokens/`, `base/`, `primitives/`, `components/`, `compositions/`, `utilities/`, `theme/`) into `web-vite/`.
-
-See [`design-system/README.md`](./design-system/README.md) for principles, structure, and how to preview the component **gallery** locally. Current version: see `design-system/VERSION`.
+The canonical source of truth is [`libraries/design-system/`](./libraries/design-system) — tokens, primitives, components, compositions, utilities, theme, plus its own `gallery/` (live component browser) and `sandbox/`. It versions independently via its `VERSION` file. See its [README](./libraries/design-system/README.md) for principles and structure.
 
 ## License
 
