@@ -2,7 +2,9 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Restructure the public `template` repo into a named `workbench` with honest tiers (`libraries / scaffolds / lab / tools / docs`), a unified dashboard, and a versioned extract tool that syncs libraries into web **and** C# projects by copy.
+**Goal:** Restructure the public `template` repo into a named `workbench` with honest tiers (`libraries / scaffolds / tools / docs`), a unified dashboard, and a versioned extract tool that syncs libraries into web **and** C# projects by copy.
+
+> **Amended 2026-07-11:** the `lab/` tier is dropped — `design-system-lab/` retires to `archive/design-system-lab/` (stale at v1.0.0; the DS `gallery/` + `sandbox/` are the dev surface). Dashboard has no lab card. Spec §9 gained the consumer-formatter rule (`"!design-system"` in consumer Biome includes — already shipped in web-vite).
 
 **Architecture:** Move existing folders into tiers with `git mv` (history preserved). Add a dependency-free Node script (`tools/extract.mjs`) that reads a per-library `extract.json`, copies lean parts into a target, records the version in a served CSS comment, detects drift (`--check`), and refuses to clobber local edits (without `--force`). Replace the root redirect with a static, accessible dashboard built from the design-system's own classes. All work on a `workbench-v2` branch; merge is atomic so GitHub Pages never serves a broken intermediate. Rename + push happen only on explicit go-ahead.
 
@@ -32,12 +34,12 @@ All paths below are relative to the repo root `C:/Users/Nugget/Documents/Develop
 **Files:**
 - Move: `design-system/` → `libraries/design-system/`
 - Move: `web-vite/`, `csharp-console/`, `csharp-console-mvc/`, `csharp-wpf/` → `scaffolds/<name>/`
-- Move: `design-system-lab/` → `lab/`; `Reference/` → `reference/`; `Archive/` → `archive/`
+- Move: `Reference/` → `reference/`; `Archive/` → `archive/`; `design-system-lab/` → `archive/design-system-lab/`
 - Create: `libraries/storyboard/.gitkeep`, `libraries/storyboard/README.md`, `tools/.gitkeep`
 - Modify: `.gitignore` (add `desktop.ini`)
 
 **Interfaces:**
-- Produces: the tier layout every later task depends on (`libraries/design-system/`, `scaffolds/web-vite/`, `tools/`, `lab/`).
+- Produces: the tier layout every later task depends on (`libraries/design-system/`, `scaffolds/web-vite/`, `tools/`).
 
 - [ ] **Step 1: Move the library and scaffolds with history**
 
@@ -49,9 +51,9 @@ git mv web-vite scaffolds/web-vite
 git mv csharp-console scaffolds/csharp-console
 git mv csharp-console-mvc scaffolds/csharp-console-mvc
 git mv csharp-wpf scaffolds/csharp-wpf
-git mv design-system-lab lab
 git mv Reference reference
 git mv Archive archive
+git mv design-system-lab archive/design-system-lab
 ```
 
 - [ ] **Step 2: Create the reserved storyboard home + tools dir**
@@ -85,7 +87,7 @@ git rm --cached desktop.ini 2>/dev/null || true
 - [ ] **Step 4: Verify the tree and that history followed**
 
 ```bash
-ls -1 .                    # expect: libraries scaffolds lab tools docs reference archive index.html README.md ...
+ls -1 .                    # expect: libraries scaffolds tools docs reference archive index.html README.md ...
 ls -1 libraries scaffolds  # expect design-system+storyboard ; web-vite+csharp-*
 git log --follow --oneline -3 -- libraries/design-system/tokens/index.css
 ```
@@ -95,7 +97,7 @@ Expected: the tree matches spec §5; `git log --follow` shows commits from befor
 
 ```bash
 git add -A
-git commit -m "refactor: restructure into workbench tiers (libraries/scaffolds/lab/tools)"
+git commit -m "refactor: restructure into workbench tiers (libraries/scaffolds/tools)"
 ```
 
 ---
@@ -651,7 +653,7 @@ git commit -m "feat(design-system): extract manifest + integration test"
 - Test: `tools/dashboard.test.mjs`
 
 **Interfaces:**
-- Consumes: nothing (static). Links to `libraries/design-system/gallery/`, `scaffolds/*/README.md`, `lab/`, `docs/`.
+- Consumes: nothing (static). Links to `libraries/design-system/gallery/`, `scaffolds/*/README.md`, `docs/`.
 
 - [ ] **Step 1: Write the failing structural test**
 
@@ -679,7 +681,6 @@ test("dashboard links the key destinations", () => {
   for (const href of [
     "libraries/design-system/gallery/",
     "scaffolds/web-vite/README.md",
-    "lab/",
     "docs/",
   ]) assert.ok(html.includes(href), `missing link: ${href}`);
 });
@@ -747,7 +748,7 @@ Replace the entire contents of `index.html` with (adjust DS class names to the a
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="container">
       <h1>Workbench</h1>
-      <p>Malin's canonical libraries, scaffolds, and lab — one source of truth.</p>
+      <p>Malin's canonical libraries and scaffolds — one source of truth.</p>
     </header>
     <main id="main" class="container stack stack-xl">
       <section aria-labelledby="libs">
@@ -771,9 +772,8 @@ Replace the entire contents of `index.html` with (adjust DS class names to the a
         </div>
       </section>
       <section aria-labelledby="more">
-        <h2 id="more">Lab &amp; Docs</h2>
+        <h2 id="more">Docs</h2>
         <div class="wb-grid">
-          <a class="wb-card" href="./lab/"><strong>Lab</strong><br />Develop &amp; preview the libraries.</a>
           <a class="wb-card" href="./docs/"><strong>Docs</strong><br />Specs, plans, and workbench notes.</a>
         </div>
       </section>
@@ -810,8 +810,9 @@ git commit -m "feat: workbench dashboard replaces the gallery redirect"
 
 **Files:**
 - Modify: `README.md`
-- Modify: any file under `lab/` referencing `../design-system`
+- Modify: `scaffolds/csharp-console/init.sh` + `README.md` (stale `_template/` paths → `scaffolds/` paths)
 - Verify: each `scaffolds/*/` still resolves its own bundled `design-system/`
+- (Skip `archive/design-system-lab/` — dead storage, links not re-pointed.)
 
 **Interfaces:**
 - Consumes: the tier layout (Task 1), the dashboard (Task 6), the extract tool (Tasks 2–5).
@@ -820,15 +821,15 @@ git commit -m "feat: workbench dashboard replaces the gallery redirect"
 
 ```bash
 cd "C:/Users/Nugget/Documents/Development/template"
-grep -rIn --exclude-dir=.git -e "\.\./design-system" -e "design-system-lab" \
+grep -rIn --exclude-dir=.git -e "\.\./design-system" -e "design-system-lab" -e "_template" \
   -e "malinfossum.github.io/template" -e "github.com/malinfossum/template" \
-  lab README.md index.html docs 2>/dev/null
+  README.md index.html docs scaffolds 2>/dev/null
 ```
 Record each hit. (Scaffold-internal `/design-system/` links are their own bundled copies — leave them.)
 
-- [ ] **Step 2: Fix `lab/` references**
+- [ ] **Step 2: Fix the stale `csharp-console` paths**
 
-For each hit in `lab/`, change `../design-system` → `../libraries/design-system`. Leave scaffold-internal references untouched.
+In `scaffolds/csharp-console/init.sh` and `README.md`, update `~/Documents/Development/_template/csharp-console/` → `~/Documents/Development/template/scaffolds/csharp-console/` (path changes again only if the local folder is ever renamed to `workbench`).
 
 - [ ] **Step 3: Rewrite `README.md` for the workbench**
 
@@ -859,7 +860,7 @@ Expected: the bundled copy is present and its links are unchanged by the move.
 - [ ] **Step 5: Broken-link check on moved surfaces**
 
 ```bash
-# every relative href in index.html + lab points at something that exists
+# every relative href in index.html points at something that exists
 node -e '
 const {readFileSync,existsSync}=require("fs");const {dirname,join}=require("path");
 for(const f of ["index.html"]){const html=readFileSync(f,"utf8");
@@ -872,7 +873,7 @@ Expected: `link check done`, no `BROKEN:` lines.
 - [ ] **Step 6: Commit**
 
 ```bash
-git add README.md lab
+git add README.md scaffolds/csharp-console
 git commit -m "docs: repoint references and README to workbench layout"
 ```
 
