@@ -1,0 +1,35 @@
+<Window x:Class="MyApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="App"
+        MinWidth="400" MinHeight="280"
+        Width="560" Height="360"
+        Background="{StaticResource PageBg}">
+
+  <!-- Resize-tolerant layout: star-sized rows, no fixed pixels for content. -->
+  <Grid Margin="24">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <TextBlock Grid.Row="0"
+               Text="App"
+               FontSize="{StaticResource Text2xl}"
+               Foreground="{StaticResource Text}"/>
+
+    <TextBlock Grid.Row="1"
+               Text="{Binding Status}"
+               FontSize="{StaticResource TextMd}"
+               Foreground="{StaticResource TextMuted}"
+               HorizontalAlignment="Center" VerticalAlignment="Center"
+               TextWrapping="Wrap"/>
+
+    <Button Grid.Row="2"
+            Content="Confirm wiring"
+            Style="{StaticResource PrimaryAction}"
+            Command="{Binding ConfirmWiringCommand}"
+            HorizontalAlignment="Left"/>
+  </Grid>
+</Window>
