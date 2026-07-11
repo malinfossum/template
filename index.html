@@ -30,7 +30,7 @@
 				align-items: flex-start;
 				justify-content: space-between;
 				gap: var(--space-4);
-				padding-block: var(--space-8) var(--space-6);
+				padding-block: var(--space-6) var(--space-4);
 			}
 			.wb-header h1 {
 				font-family: var(--font-display);
@@ -42,7 +42,7 @@
 				height: 2px;
 				border-radius: 2px;
 				background: var(--accent);
-				margin-block: var(--space-4) var(--space-3);
+				margin-block: var(--space-3) var(--space-2);
 			}
 			.wb-tagline {
 				color: var(--text-muted);
@@ -55,7 +55,7 @@
 				padding-top: var(--space-2);
 			}
 			.wb-tier {
-				padding-block: var(--space-7) 0;
+				padding-block: var(--space-5) 0;
 			}
 			.wb-tier h2 {
 				font-family: var(--font-display);
@@ -65,11 +65,11 @@
 			.wb-tier-intro {
 				color: var(--text-faint);
 				font-size: var(--text-sm);
-				margin-block: var(--space-2) var(--space-5);
+				margin-block: var(--space-1) var(--space-4);
 			}
 			.wb-grid {
 				display: grid;
-				gap: var(--space-5);
+				gap: var(--space-4);
 				grid-template-columns: 1fr;
 			}
 			@media (min-width: 768px) {
@@ -77,13 +77,14 @@
 			}
 			@media (min-width: 1024px) {
 				.wb-grid { grid-template-columns: repeat(3, 1fr); }
+				.wb-grid-4 { grid-template-columns: repeat(4, 1fr); }
 			}
 			.wb-card {
 				display: flex;
 				flex-direction: column;
 				gap: var(--space-2);
 				min-height: 44px;
-				padding: var(--space-5);
+				padding: var(--space-4) var(--space-5);
 				background: var(--card-bg);
 				border: 1px solid var(--border-soft);
 				border-radius: var(--radius-lg);
@@ -103,7 +104,7 @@
 			}
 			.wb-card .wb-cue {
 				margin-top: auto;
-				padding-top: var(--space-3);
+				padding-top: var(--space-2);
 				font-size: var(--text-xs);
 				letter-spacing: 0.08em;
 				text-transform: uppercase;
@@ -123,8 +124,8 @@
 				cursor: default;
 			}
 			.wb-footer {
-				margin-block: var(--space-9) var(--space-7);
-				padding-top: var(--space-5);
+				margin-block: var(--space-6) var(--space-5);
+				padding-top: var(--space-4);
 				border-top: 1px solid var(--border-soft);
 				display: flex;
 				flex-wrap: wrap;
@@ -176,7 +177,7 @@
 			<section class="wb-tier" aria-labelledby="scaffolds">
 				<h2 id="scaffolds">Scaffolds</h2>
 				<p class="wb-tier-intro">Copied once to start a project, then owned by it. Each card opens the setup guide.</p>
-				<div class="wb-grid">
+				<div class="wb-grid wb-grid-4">
 					<a class="wb-card" href="./guide/#web-vite">
 						<strong>web-vite</strong>
 						<p>Vanilla-JS MVC web starter, Vite + Biome — the pattern pre-wired, the design system bundled.</p>

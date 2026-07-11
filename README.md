@@ -1,5 +1,7 @@
 # Workbench
 
+[![CI](https://github.com/malinfossum/workbench/actions/workflows/ci.yml/badge.svg)](https://github.com/malinfossum/workbench/actions/workflows/ci.yml)
+
 One canonical home for reusable libraries and copy-to-start scaffolds. Libraries are edited here and extracted into projects; scaffolds are copied once and owned by the project.
 
 **Front door:** [`index.html`](./index.html) — the dashboard GitHub Pages serves, linking every tier.
