@@ -6,8 +6,9 @@ import { join } from "node:path";
 import {
   loadManifest, assertWithinRoot, planCopy,
   readCanonicalVersion, anchorRel, readRecordedVersion, writeVersionHeader,
+  extract,
 } from "./extract.mjs";
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync as exists } from "node:fs";
 
 function fixtureLib() {
   const dir = mkdtempSync(join(tmpdir(), "wb-lib-"));
@@ -53,6 +54,67 @@ test("planCopy includes tokens, excludes gallery", () => {
   const files = planCopy(dir, loadManifest(dir));
   assert.deepEqual(files, [join("tokens", "index.css")]);
   rmSync(dir, { recursive: true, force: true });
+});
+
+// Build a fixture workbench with libraries/design-system + a fresh target dir.
+function fixtureWorkbench() {
+  const root = mkdtempSync(join(tmpdir(), "wb-root-"));
+  const lib = join(root, "libraries", "design-system");
+  mkdirSync(join(lib, "tokens"), { recursive: true });
+  writeFileSync(join(lib, "tokens", "index.css"), "/* tokens */\n.t{}");
+  mkdirSync(join(lib, "gallery"), { recursive: true });
+  writeFileSync(join(lib, "gallery", "index.html"), "<x>");
+  writeFileSync(join(lib, "VERSION"), "1.3.0\n");
+  writeFileSync(join(lib, "extract.json"), JSON.stringify({
+    versionFile: "VERSION", include: ["tokens", "gallery"], exclude: ["gallery"],
+  }));
+  const target = mkdtempSync(join(tmpdir(), "wb-consumer-"));
+  return { root, target };
+}
+
+test("extract copies lean parts and records version, excludes gallery", () => {
+  const { root, target } = fixtureWorkbench();
+  const r = extract({ libraryName: "design-system", workbenchRoot: root, targetDir: target });
+  assert.equal(r.status, "copied-fresh");
+  assert.ok(exists(join(target, "design-system", "tokens", "index.css")));
+  assert.ok(!exists(join(target, "design-system", "gallery")));
+  assert.equal(r.canonical, "1.3.0");
+  rmSync(root, { recursive: true, force: true }); rmSync(target, { recursive: true, force: true });
+});
+
+test("second run is a noop when up to date", () => {
+  const { root, target } = fixtureWorkbench();
+  extract({ libraryName: "design-system", workbenchRoot: root, targetDir: target });
+  const r = extract({ libraryName: "design-system", workbenchRoot: root, targetDir: target });
+  assert.equal(r.status, "noop");
+  rmSync(root, { recursive: true, force: true }); rmSync(target, { recursive: true, force: true });
+});
+
+test("--check reports stale when target is behind", () => {
+  const { root, target } = fixtureWorkbench();
+  extract({ libraryName: "design-system", workbenchRoot: root, targetDir: target });
+  writeFileSync(join(root, "libraries", "design-system", "VERSION"), "1.4.0\n");
+  const r = extract({ libraryName: "design-system", workbenchRoot: root, targetDir: target, check: true });
+  assert.equal(r.status, "stale");
+  rmSync(root, { recursive: true, force: true }); rmSync(target, { recursive: true, force: true });
+});
+
+test("halts on a locally-modified up-to-date copy, --force overrides", () => {
+  const { root, target } = fixtureWorkbench();
+  extract({ libraryName: "design-system", workbenchRoot: root, targetDir: target });
+  writeFileSync(join(target, "design-system", "tokens", "index.css"), "/* workbench-lib: design-system v1.3.0 — x */\n.HAND_EDIT{}");
+  const halted = extract({ libraryName: "design-system", workbenchRoot: root, targetDir: target });
+  assert.equal(halted.status, "halted-modified");
+  assert.ok(halted.conflicts.length >= 1);
+  const forced = extract({ libraryName: "design-system", workbenchRoot: root, targetDir: target, force: true });
+  assert.equal(forced.status, "synced");
+  rmSync(root, { recursive: true, force: true }); rmSync(target, { recursive: true, force: true });
+});
+
+test("unknown library is a hard error", () => {
+  const { root, target } = fixtureWorkbench();
+  assert.throws(() => extract({ libraryName: "nope", workbenchRoot: root, targetDir: target }), /Unknown library/);
+  rmSync(root, { recursive: true, force: true }); rmSync(target, { recursive: true, force: true });
 });
 
 test("readCanonicalVersion trims the VERSION file", () => {

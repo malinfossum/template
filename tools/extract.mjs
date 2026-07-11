@@ -1,5 +1,6 @@
-import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, readdirSync, statSync, mkdirSync, cpSync } from "node:fs";
 import { join, resolve, relative, isAbsolute } from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const DANGEROUS_KEYS = new Set(["__proto__", "constructor", "prototype"]);
 
@@ -87,4 +88,93 @@ export function writeVersionHeader(targetLibDir, anchor, libraryName, version) {
   const header = `/* workbench-lib: ${libraryName} v${version} — extracted; edit in the workbench, not here */`;
   const existing = existsSync(file) ? readFileSync(file, "utf8") : "";
   writeFileSync(file, `${header}\n${existing.replace(HEADER_LINE_RE, "")}`);
+}
+
+function filesDiffer(a, b) {
+  if (!existsSync(a) || !existsSync(b)) return true;
+  return !readFileSync(a).equals(readFileSync(b));
+}
+
+function doCopy(libraryDir, targetLibDir, manifest) {
+  const exclude = new Set(manifest.exclude);
+  mkdirSync(targetLibDir, { recursive: true });
+  for (const entry of manifest.include) {
+    if (exclude.has(entry)) continue;
+    const src = assertWithinRoot(libraryDir, entry);
+    if (!existsSync(src)) continue;
+    cpSync(src, join(targetLibDir, entry), { recursive: true });
+  }
+}
+
+export function extract({ libraryName, workbenchRoot, targetDir, check = false, force = false }) {
+  const librariesDir = assertWithinRoot(workbenchRoot, "libraries");
+  const libraryDir = assertWithinRoot(librariesDir, libraryName); // rejects "../x"
+  if (!existsSync(libraryDir)) throw new Error(`Unknown library "${libraryName}".`);
+
+  const manifest = loadManifest(libraryDir);
+  const canonical = readCanonicalVersion(libraryDir, manifest);
+  const anchor = anchorRel(manifest);
+  const targetLibDir = join(resolve(targetDir), libraryName);
+  const recorded = readRecordedVersion(targetLibDir, anchor);
+
+  if (check) {
+    return { status: recorded === canonical ? "current" : "stale", canonical, recorded };
+  }
+
+  if (!existsSync(targetLibDir)) {
+    doCopy(libraryDir, targetLibDir, manifest);
+    writeVersionHeader(targetLibDir, anchor, libraryName, canonical);
+    return { status: "copied-fresh", canonical, files: planCopy(libraryDir, manifest) };
+  }
+
+  if (recorded === canonical && !force) {
+    const conflicts = planCopy(libraryDir, manifest).filter((rel) => {
+      const targetFile = join(targetLibDir, rel);
+      if (!existsSync(targetFile)) return false;
+      if (rel === anchor) {
+        // the anchor legitimately carries the version header — compare without it
+        const src = readFileSync(join(libraryDir, rel), "utf8");
+        const tgt = readFileSync(targetFile, "utf8").replace(HEADER_LINE_RE, "");
+        return src !== tgt;
+      }
+      return filesDiffer(join(libraryDir, rel), targetFile);
+    });
+    if (conflicts.length) return { status: "halted-modified", canonical, conflicts };
+    return { status: "noop", canonical };
+  }
+
+  if (recorded === null && readdirSync(targetLibDir).length && !force) {
+    return { status: "halted-unknown", canonical };
+  }
+
+  doCopy(libraryDir, targetLibDir, manifest);
+  writeVersionHeader(targetLibDir, anchor, libraryName, canonical);
+  return { status: "synced", canonical, recorded, files: planCopy(libraryDir, manifest) };
+}
+
+// ---- CLI ----
+function main(argv) {
+  const flags = new Set(argv.filter((a) => a.startsWith("--")));
+  const [library, target] = argv.filter((a) => !a.startsWith("--"));
+  if (!library || !target) {
+    console.error("usage: node tools/extract.mjs <library> <target-dir> [--check] [--force]");
+    process.exit(1);
+  }
+  const workbenchRoot = fileURLToPath(new URL("..", import.meta.url));
+  let r;
+  try {
+    r = extract({ libraryName: library, workbenchRoot, targetDir: target,
+                  check: flags.has("--check"), force: flags.has("--force") });
+  } catch (e) {
+    console.error(`extract: ${e.message}`);
+    process.exit(1);
+  }
+  const okStatuses = new Set(["current", "copied-fresh", "noop", "synced"]);
+  console.log(`extract: ${library} → ${target}  [${r.status}${r.canonical ? " v" + r.canonical : ""}]`);
+  if (r.conflicts?.length) console.error("locally-modified files (pass --force to overwrite):\n  " + r.conflicts.join("\n  "));
+  process.exit(okStatuses.has(r.status) ? 0 : 1);
+}
+
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main(process.argv.slice(2));
 }
