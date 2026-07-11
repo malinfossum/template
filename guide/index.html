@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Get started with the Workbench — pick a scaffold, copy it, and sync the design system into any project." />
+		<title>Setup guide — Workbench</title>
+
+		<!-- No-flash theme init: must run BEFORE stylesheets -->
+		<script>
+			(function () {
+				var root = document.documentElement;
+				root.dataset.theme = localStorage.getItem("theme") || "dark";
+				root.dataset.palette = localStorage.getItem("palette") || "default";
+			})();
+		</script>
+
+		<link rel="stylesheet" href="../libraries/design-system/tokens/index.css" />
+		<link rel="stylesheet" href="../libraries/design-system/base/reset.css" />
+		<link rel="stylesheet" href="../libraries/design-system/base/base.css" />
+		<link rel="stylesheet" href="../libraries/design-system/primitives/index.css" />
+		<link rel="stylesheet" href="../libraries/design-system/components/index.css" />
+		<link rel="stylesheet" href="../libraries/design-system/utilities/index.css" />
+
+		<style>
+			/* guide-local chrome only — self-namespaced, not part of the design system */
+			.wb-nav {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				justify-content: space-between;
+				gap: var(--space-3);
+				padding-block: var(--space-5);
+			}
+			.wb-nav a.wb-home {
+				color: var(--text-muted);
+				text-decoration: none;
+				font-size: var(--text-sm);
+			}
+			.wb-nav a.wb-home:hover,
+			.wb-nav a.wb-home:focus-visible {
+				color: var(--accent);
+			}
+			.wb-hero {
+				padding-block: var(--space-6) var(--space-7);
+			}
+			.wb-hero h1,
+			.wb-section h2 {
+				font-family: var(--font-display);
+				font-weight: 600;
+				letter-spacing: -0.01em;
+			}
+			.wb-rule {
+				width: 64px;
+				height: 2px;
+				border-radius: 2px;
+				background: var(--accent);
+				margin-block: var(--space-4) var(--space-3);
+			}
+			.wb-lede {
+				color: var(--text-muted);
+				max-width: var(--reading-width);
+			}
+			.wb-section {
+				max-width: var(--reading-width);
+				padding-block: var(--space-7) 0;
+			}
+			.wb-section:target h2 {
+				color: var(--accent);
+			}
+			.wb-kicker {
+				font-size: var(--text-xs);
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				color: var(--text-faint);
+				margin-bottom: var(--space-2);
+			}
+			.wb-section p {
+				margin-block: var(--space-3) 0;
+			}
+			.wb-section ol,
+			.wb-section ul {
+				margin-block: var(--space-3) 0;
+				padding-left: var(--space-5);
+				display: grid;
+				gap: var(--space-2);
+			}
+			.wb-section pre {
+				margin-block: var(--space-4) 0;
+				padding: var(--space-4);
+				background: var(--panel-bg);
+				border: 1px solid var(--border-soft);
+				border-radius: var(--radius-md);
+				overflow-x: auto;
+				font-size: var(--text-sm);
+				line-height: 1.6;
+			}
+			.wb-section code {
+				font-size: 0.925em;
+			}
+			.wb-ghlink {
+				display: inline-block;
+				margin-top: var(--space-3);
+				font-size: var(--text-sm);
+			}
+			.wb-note {
+				margin-top: var(--space-4);
+				padding: var(--space-4);
+				border-left: 2px solid var(--accent);
+				background: var(--card-bg);
+				border-radius: 0 var(--radius-md) var(--radius-md) 0;
+				font-size: var(--text-sm);
+			}
+			.wb-footer {
+				margin-block: var(--space-9) var(--space-7);
+				padding-top: var(--space-5);
+				border-top: 1px solid var(--border-soft);
+				color: var(--text-faint);
+				font-size: var(--text-sm);
+			}
+		</style>
+	</head>
+	<body>
+		<a class="skip-link" href="#main">Skip to content</a>
+
+		<nav class="container wb-nav" aria-label="Workbench">
+			<a class="wb-home" href="../">← Workbench</a>
+			<button type="button" class="btn" data-theme-toggle>Toggle theme</button>
+		</nav>
+
+		<main id="main" class="container">
+			<header class="wb-hero">
+				<h1>Setup guide</h1>
+				<div class="wb-rule" aria-hidden="true"></div>
+				<p class="wb-lede">
+					Every scaffold is a folder you copy once and then own. Get the workbench,
+					pick your scaffold below, and you're building in minutes.
+				</p>
+			</header>
+
+			<section class="wb-section" id="get-the-workbench" aria-labelledby="h-get">
+				<p class="wb-kicker">First</p>
+				<h2 id="h-get">Get the workbench</h2>
+				<p>Three ways, best first:</p>
+				<ol>
+					<li><strong>Use this template</strong> on <a href="https://github.com/malinfossum/workbench">GitHub</a> — creates your own repo with the full structure; delete the scaffolds you don't need.</li>
+					<li><strong>Clone it:</strong></li>
+				</ol>
+				<pre><code>git clone https://github.com/malinfossum/workbench.git</code></pre>
+				<ol start="3">
+					<li><strong>Download ZIP</strong> from the GitHub page (Code → Download ZIP) if you just want one scaffold folder.</li>
+				</ol>
+			</section>
+
+			<section class="wb-section" id="web-vite" aria-labelledby="h-webvite">
+				<p class="wb-kicker">Scaffold · Web</p>
+				<h2 id="h-webvite">web-vite</h2>
+				<p>
+					Vanilla-JS MVC starter with Vite and Biome. The MVC pattern is pre-wired —
+					a subscribe/notify model, a view that forwards <code>data-action</code> events,
+					and a live controller — and the design system is bundled, ready to use.
+				</p>
+				<ol>
+					<li>Copy <code>scaffolds/web-vite/</code> to wherever the project lives.</li>
+					<li><code>npm install</code></li>
+					<li>Set <code>&lt;title&gt;</code> and <code>&lt;meta name="description"&gt;</code> in <code>index.html</code>.</li>
+					<li><code>npm run dev</code> — the shell opens dark with design-system styles applied.</li>
+					<li>Build in <code>src/model</code>, <code>src/view</code>, <code>src/controller</code>; project styles go in <code>src/styles/main.css</code> (mobile-first).</li>
+				</ol>
+				<div class="wb-note">
+					<code>design-system/</code> is read-only inside your project and excluded from Biome —
+					refresh it with the <a href="#design-system">extract tool</a>, never by hand-editing.
+				</div>
+				<a class="wb-ghlink" href="https://github.com/malinfossum/workbench/tree/main/scaffolds/web-vite">View web-vite on GitHub →</a>
+			</section>
+
+			<section class="wb-section" id="csharp-console" aria-labelledby="h-console">
+				<p class="wb-kicker">Scaffold · C#</p>
+				<h2 id="h-console">csharp-console</h2>
+				<p>
+					Not a copy-scaffold — an overlay. Create a console project the normal way,
+					then run <code>init.sh</code> to inject editor configs (F5 debug, build task,
+					launch profile) with the right project name auto-detected.
+				</p>
+				<pre><code>dotnet new console -n MyProject -o my-project
+cd my-project
+bash ~/Documents/Development/workbench/scaffolds/csharp-console/init.sh</code></pre>
+				<p>No bash? Copy <code>.vscode/</code> and <code>Properties/</code> in manually and find/replace <code>TemplateProject</code> with your project name.</p>
+				<a class="wb-ghlink" href="https://github.com/malinfossum/workbench/tree/main/scaffolds/csharp-console">View csharp-console on GitHub →</a>
+			</section>
+
+			<section class="wb-section" id="csharp-layered" aria-labelledby="h-layered">
+				<p class="wb-kicker">Scaffold · C#</p>
+				<h2 id="h-layered">csharp-layered</h2>
+				<p>
+					A solution with a class library (<code>App.Core</code> — no IO), a console
+					front-end, and an NUnit test project that references Core only. The same
+					layering later scales to an API with one <code>dotnet new webapi</code>.
+				</p>
+				<ol>
+					<li>Copy <code>scaffolds/csharp-layered/</code> to wherever the project lives.</li>
+					<li>Rename <code>App.slnx</code> and each <code>App.*</code> project + folder to <code>&lt;YourName&gt;.*</code> (find/replace <code>App.</code> across files).</li>
+					<li><code>dotnet restore &amp;&amp; dotnet build &amp;&amp; dotnet test</code></li>
+					<li>Open the solution in Rider and start writing domain types in <code>Core/Models/</code>.</li>
+				</ol>
+				<a class="wb-ghlink" href="https://github.com/malinfossum/workbench/tree/main/scaffolds/csharp-layered">View csharp-layered on GitHub →</a>
+			</section>
+
+			<section class="wb-section" id="csharp-wpf" aria-labelledby="h-wpf">
+				<p class="wb-kicker">Scaffold · C# · Desktop</p>
+				<h2 id="h-wpf">csharp-wpf</h2>
+				<p>
+					WPF/MVVM starter proven in <a href="https://github.com/malinfossum/tidsro">Tidsro</a>:
+					CommunityToolkit.Mvvm, Services as the only I/O boundary, xUnit, and
+					<code>tokens.xaml</code> mirroring the design-system palette and scales —
+					dark-first with keyboard-only focus visuals.
+				</p>
+				<ol>
+					<li>Copy <code>scaffolds/csharp-wpf/</code> to wherever the project lives.</li>
+					<li>Find/replace <code>MyApp</code> → <code>&lt;YourName&gt;</code> across files and folder names (check <code>x:Class</code> and <code>RootNamespace</code>).</li>
+					<li><code>dotnet restore &amp;&amp; dotnet build &amp;&amp; dotnet test</code></li>
+					<li><code>dotnet run --project &lt;YourName&gt;</code> — the window opens dark; the button proves the binding chain.</li>
+					<li>Replace <code>Status</code>/<code>ConfirmWiring</code> in <code>MainViewModel</code> with real state and behavior.</li>
+				</ol>
+				<div class="wb-note">
+					Keep the Application class named <code>App</code>, but never name the <em>project</em>
+					literally <code>App</code> — a WPF project by that name fails to compile.
+				</div>
+				<a class="wb-ghlink" href="https://github.com/malinfossum/workbench/tree/main/scaffolds/csharp-wpf">View csharp-wpf on GitHub →</a>
+			</section>
+
+			<section class="wb-section" id="design-system" aria-labelledby="h-ds">
+				<p class="wb-kicker">Library</p>
+				<h2 id="h-ds">Design system in your project</h2>
+				<p>
+					The canonical design system lives in <code>libraries/design-system/</code> and is
+					copied into projects with the extract tool — web and C# <code>wwwroot</code> alike:
+				</p>
+				<pre><code>node tools/extract.mjs design-system ../my-app          # → ../my-app/design-system
+node tools/extract.mjs design-system ../my-api/wwwroot  # into a C# wwwroot
+node tools/extract.mjs design-system ../my-app --check  # is my copy stale?</code></pre>
+				<ul>
+					<li>Copies only the lean parts and records the version in the copy.</li>
+					<li><code>--check</code> tells you when a project is behind the canonical version.</li>
+					<li>Refuses to overwrite files you've edited locally (<code>--force</code> to override).</li>
+					<li>One rule: edit the system <strong>in the workbench</strong>, re-extract — never patch a copy.</li>
+				</ul>
+				<a class="wb-ghlink" href="../libraries/design-system/gallery/">Browse every component in the gallery →</a>
+			</section>
+
+			<footer class="wb-footer">
+				<a href="../">← Back to the Workbench</a>
+			</footer>
+		</main>
+
+		<script src="../libraries/design-system/theme/theme-toggle.js"></script>
+	</body>
+</html>

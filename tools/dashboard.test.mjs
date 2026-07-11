@@ -18,7 +18,10 @@ test("dashboard has a skip link and no div-click cards", () => {
 test("dashboard links the key destinations", () => {
   for (const href of [
     "libraries/design-system/gallery/",
-    "scaffolds/web-vite/README.md",
+    "guide/#web-vite",
+    "guide/#csharp-console",
+    "guide/#csharp-layered",
+    "guide/#csharp-wpf",
     "docs/",
   ]) assert.ok(html.includes(href), `missing link: ${href}`);
 });

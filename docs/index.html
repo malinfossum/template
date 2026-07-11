@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Workbench specs and implementation plans." />
+		<title>Specs &amp; plans — Workbench</title>
+
+		<!-- No-flash theme init: must run BEFORE stylesheets -->
+		<script>
+			(function () {
+				var root = document.documentElement;
+				root.dataset.theme = localStorage.getItem("theme") || "dark";
+				root.dataset.palette = localStorage.getItem("palette") || "default";
+			})();
+		</script>
+
+		<link rel="stylesheet" href="../libraries/design-system/tokens/index.css" />
+		<link rel="stylesheet" href="../libraries/design-system/base/reset.css" />
+		<link rel="stylesheet" href="../libraries/design-system/base/base.css" />
+		<link rel="stylesheet" href="../libraries/design-system/primitives/index.css" />
+		<link rel="stylesheet" href="../libraries/design-system/components/index.css" />
+		<link rel="stylesheet" href="../libraries/design-system/utilities/index.css" />
+
+		<style>
+			/* docs-local chrome only — self-namespaced, not part of the design system */
+			.wb-nav {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				justify-content: space-between;
+				gap: var(--space-3);
+				padding-block: var(--space-5);
+			}
+			.wb-nav a.wb-home {
+				color: var(--text-muted);
+				text-decoration: none;
+				font-size: var(--text-sm);
+			}
+			.wb-nav a.wb-home:hover,
+			.wb-nav a.wb-home:focus-visible {
+				color: var(--accent);
+			}
+			.wb-hero {
+				padding-block: var(--space-6) var(--space-6);
+			}
+			.wb-hero h1 {
+				font-family: var(--font-display);
+				font-weight: 600;
+				letter-spacing: -0.01em;
+			}
+			.wb-rule {
+				width: 64px;
+				height: 2px;
+				border-radius: 2px;
+				background: var(--accent);
+				margin-block: var(--space-4) var(--space-3);
+			}
+			.wb-lede {
+				color: var(--text-muted);
+				max-width: var(--reading-width);
+			}
+			.wb-list {
+				max-width: var(--reading-width);
+				display: grid;
+				gap: var(--space-4);
+				padding-block: var(--space-5) 0;
+			}
+			.wb-doc {
+				display: flex;
+				flex-direction: column;
+				gap: var(--space-1);
+				padding: var(--space-5);
+				background: var(--card-bg);
+				border: 1px solid var(--border-soft);
+				border-radius: var(--radius-lg);
+				color: inherit;
+				text-decoration: none;
+				transition: border-color var(--duration-base) var(--ease-standard);
+			}
+			.wb-doc:hover,
+			.wb-doc:focus-visible {
+				border-color: rgb(var(--accent-rgb) / 55%);
+			}
+			.wb-doc strong {
+				font-family: var(--font-display);
+				font-weight: 600;
+				font-size: var(--text-lg);
+			}
+			.wb-doc small {
+				color: var(--text-faint);
+			}
+			.wb-doc p {
+				font-size: var(--text-sm);
+				margin: var(--space-1) 0 0;
+			}
+			.wb-footer {
+				margin-block: var(--space-9) var(--space-7);
+				padding-top: var(--space-5);
+				border-top: 1px solid var(--border-soft);
+				color: var(--text-faint);
+				font-size: var(--text-sm);
+			}
+			@media (prefers-reduced-motion: reduce) {
+				.wb-doc { transition: none; }
+			}
+		</style>
+	</head>
+	<body>
+		<a class="skip-link" href="#main">Skip to content</a>
+
+		<nav class="container wb-nav" aria-label="Workbench">
+			<a class="wb-home" href="../">← Workbench</a>
+			<button type="button" class="btn" data-theme-toggle>Toggle theme</button>
+		</nav>
+
+		<main id="main" class="container">
+			<header class="wb-hero">
+				<h1>Specs &amp; plans</h1>
+				<div class="wb-rule" aria-hidden="true"></div>
+				<p class="wb-lede">
+					The design documents behind each release. They live as markdown in the repo,
+					so these links open on GitHub where markdown renders properly.
+				</p>
+			</header>
+
+			<div class="wb-list">
+				<a class="wb-doc" href="https://github.com/malinfossum/workbench/blob/main/docs/specs/2026-07-09-workbench-restructure.md">
+					<strong>Spec A — Workbench restructure</strong>
+					<small>2026-07-09 · shipped in v2.0.0</small>
+					<p>Tiered layout, the copy model and why dependency models were rejected, the extract tool's safety design, and the migration plan.</p>
+				</a>
+				<a class="wb-doc" href="https://github.com/malinfossum/workbench/blob/main/docs/plans/2026-07-09-workbench-restructure.md">
+					<strong>Plan — Workbench restructure</strong>
+					<small>2026-07-09 · shipped in v2.0.0</small>
+					<p>The test-first, task-by-task implementation plan Spec A was executed from.</p>
+				</a>
+				<a class="wb-doc" href="https://github.com/malinfossum/workbench/blob/main/docs/specs/2026-07-11-scaffold-refresh.md">
+					<strong>Spec C — Scaffold refresh</strong>
+					<small>2026-07-11 · shipped in v2.1.0</small>
+					<p>De-schooling every scaffold, the csharp-layered rename, wiring the web MVC pattern, Vite 8, and building csharp-wpf from Tidsro.</p>
+				</a>
+			</div>
+
+			<footer class="wb-footer">
+				<a href="../">← Back to the Workbench</a>
+			</footer>
+		</main>
+
+		<script src="../libraries/design-system/theme/theme-toggle.js"></script>
+	</body>
+</html>
