@@ -920,7 +920,7 @@ The skill lives outside this repo. Commit it wherever `.claude/skills/` is versi
 
 ```bash
 cd "C:/Users/Nugget/Documents/Development/template"
-node --test tools/
+node --test "tools/*.test.mjs"
 ```
 Expected: all `extract`, `integration`, and `dashboard` tests PASS.
 
