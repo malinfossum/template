@@ -1,0 +1,5 @@
+{
+  "versionFile": "VERSION",
+  "include": ["tokens", "base", "primitives", "components", "compositions", "utilities", "theme", "assets"],
+  "exclude": ["gallery", "sandbox", "docs"]
+}
