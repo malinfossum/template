@@ -1,27 +1,130 @@
 <!doctype html>
 <html lang="en" data-theme="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Malin Design System</title>
-    <!-- Showcase entry: send visitors straight to the live gallery. -->
-    <meta http-equiv="refresh" content="0; url=./design-system/gallery/" />
-    <link rel="canonical" href="./design-system/gallery/" />
-    <style>
-      html { color-scheme: dark; }
-      body {
-        margin: 0;
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        background: #0b0a0a;
-        color: #faf9f5;
-        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-      }
-      a { color: #f96e22; }
-    </style>
-  </head>
-  <body>
-    <p>Redirecting to the <a href="./design-system/gallery/">design system gallery</a>…</p>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="Malin's workbench — canonical libraries and copy-to-start scaffolds." />
+		<title>Workbench</title>
+
+		<!-- No-flash theme init: must run BEFORE stylesheets -->
+		<script>
+			(function () {
+				var root = document.documentElement;
+				root.dataset.theme = localStorage.getItem("theme") || "dark";
+				root.dataset.palette = localStorage.getItem("palette") || "default";
+			})();
+		</script>
+
+		<link rel="stylesheet" href="./libraries/design-system/tokens/index.css" />
+		<link rel="stylesheet" href="./libraries/design-system/base/reset.css" />
+		<link rel="stylesheet" href="./libraries/design-system/base/base.css" />
+		<link rel="stylesheet" href="./libraries/design-system/primitives/index.css" />
+		<link rel="stylesheet" href="./libraries/design-system/components/index.css" />
+		<link rel="stylesheet" href="./libraries/design-system/utilities/index.css" />
+
+		<style>
+			/* dashboard-local chrome only — self-namespaced, not part of the design system */
+			.wb-header {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: baseline;
+				justify-content: space-between;
+				gap: var(--space-3);
+				padding-block: var(--space-6, 2rem) var(--space-4);
+			}
+			.wb-grid {
+				display: grid;
+				gap: var(--space-4);
+				grid-template-columns: 1fr;
+			}
+			@media (min-width: 768px) {
+				.wb-grid { grid-template-columns: repeat(2, 1fr); }
+			}
+			@media (min-width: 1024px) {
+				.wb-grid { grid-template-columns: repeat(3, 1fr); }
+			}
+			.wb-card {
+				display: block;
+				min-height: 44px;
+				padding: var(--space-4);
+				border: 1px solid var(--surface-3);
+				border-radius: var(--radius-md);
+				color: inherit;
+				text-decoration: none;
+			}
+			a.wb-card:hover,
+			a.wb-card:focus-visible {
+				border-color: rgb(var(--accent-rgb) / 60%);
+			}
+			.wb-card[aria-disabled="true"] {
+				opacity: 0.55;
+				cursor: default;
+			}
+			.wb-card strong {
+				display: block;
+				margin-block-end: var(--space-2, 0.5rem);
+			}
+		</style>
+	</head>
+	<body>
+		<a class="skip-link" href="#main">Skip to content</a>
+
+		<header class="container wb-header">
+			<div>
+				<h1>Workbench</h1>
+				<p>Malin's canonical libraries and scaffolds — one source of truth.</p>
+			</div>
+			<button type="button" class="btn" data-theme-toggle>Toggle theme</button>
+		</header>
+
+		<main id="main" class="container stack stack-xl">
+			<section aria-labelledby="libs">
+				<h2 id="libs">Libraries</h2>
+				<div class="wb-grid">
+					<a class="wb-card" href="./libraries/design-system/gallery/">
+						<strong>Design System</strong>
+						Tokens, primitives, components — browse the gallery.
+					</a>
+					<span class="wb-card" role="note" aria-disabled="true">
+						<strong>Storyboard</strong>
+						Screens, flows &amp; states — coming soon.
+					</span>
+				</div>
+			</section>
+
+			<section aria-labelledby="scaffolds">
+				<h2 id="scaffolds">Scaffolds</h2>
+				<div class="wb-grid">
+					<a class="wb-card" href="./scaffolds/web-vite/README.md">
+						<strong>web-vite</strong>
+						Vanilla-JS MVC web starter, Vite + Biome.
+					</a>
+					<a class="wb-card" href="./scaffolds/csharp-console/README.md">
+						<strong>csharp-console</strong>
+						Editor configs for a single-project console app.
+					</a>
+					<a class="wb-card" href="./scaffolds/csharp-console-mvc/README.md">
+						<strong>csharp-console-mvc</strong>
+						Solution with class library, console front-end, NUnit.
+					</a>
+					<a class="wb-card" href="./scaffolds/csharp-wpf/README.md">
+						<strong>csharp-wpf</strong>
+						WPF/MVVM starter (in progress).
+					</a>
+				</div>
+			</section>
+
+			<section aria-labelledby="more">
+				<h2 id="more">Docs</h2>
+				<div class="wb-grid">
+					<a class="wb-card" href="./docs/">
+						<strong>Docs</strong>
+						Specs, plans, and workbench notes.
+					</a>
+				</div>
+			</section>
+		</main>
+
+		<script src="./libraries/design-system/theme/theme-toggle.js"></script>
+	</body>
 </html>
