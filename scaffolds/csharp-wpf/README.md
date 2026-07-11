@@ -14,7 +14,7 @@ WPF/MVVM starter for desktop projects. CommunityToolkit.Mvvm, a Services I/O bou
 ## First 5 steps in a new project
 
 1. Copy this folder to wherever the project lives.
-2. Rename `App.slnx`, the `App/` + `MyApp.Tests/` folders, and the `App.*` namespaces to `<YourName>.*` (find/replace `App` across files — check `x:Class` and `RootNamespace` too).
+2. Rename by find/replace `MyApp` → `<YourName>` across files and folder names (`MyApp.slnx`, `MyApp/`, `MyApp.Tests/` — check `x:Class` and `RootNamespace` too). Keep the Application class named `App`, and don't name the project literally `App` — a WPF project by that name fails to compile (namespace/class collision in the generated entry point).
 3. Run `dotnet restore && dotnet build && dotnet test`.
 4. `dotnet run --project MyApp` — the window opens dark; the button proves the binding chain.
 5. Replace `Status`/`ConfirmWiring` in `MainViewModel` with the project's real state and behavior.
