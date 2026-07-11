@@ -1,15 +1,24 @@
 /* ======================================================================
    src/model/model.js — MODEL
-   EDIT THIS FILE
-   Purpose:
-   - Store your state (variables/data)
-   - Provide methods that update state
-   Rules:
-   - NO DOM access
-   - NO setInterval / setTimeout
+   State and data only. No DOM. No timers.
+   Change state through methods here, then call notify() so the view
+   re-renders.
    ====================================================================== */
 
 export function createModel() {
-	// Start empty. Add only what your assignment needs.
-	return {}
+	const subscribers = []
+
+	const state = {
+		// project state goes here
+	}
+
+	function subscribe(fn) {
+		subscribers.push(fn)
+	}
+
+	function notify() {
+		for (const fn of subscribers) fn(state)
+	}
+
+	return { subscribe, notify, state }
 }

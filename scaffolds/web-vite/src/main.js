@@ -1,7 +1,6 @@
 /* ======================================================================
    src/main.js — VITE ENTRY POINT
-   DO NOT TOUCH
-   - This file only boots the app.
+   Boots the app. Rarely edited.
    ====================================================================== */
 
 import "./styles/main.css"

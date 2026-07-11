@@ -8,9 +8,10 @@
 
 		<!-- No-flash theme init: must run BEFORE stylesheets -->
 		<script>
-			(function () {
-				var saved = localStorage.getItem("theme");
-				document.documentElement.dataset.theme = saved || "dark";
+			(() => {
+				var root = document.documentElement;
+				root.dataset.theme = localStorage.getItem("theme") || "dark";
+				root.dataset.palette = localStorage.getItem("palette") || "default";
 			})();
 		</script>
 
@@ -29,16 +30,14 @@
 	<body>
 		<a class="skip-link" href="#main">Skip to content</a>
 
-		<div id="app" class="app">
-			<div class="shell">
-				<header class="header">
-					<h1 class="title">Project</h1>
-					<p class="subtitle">MVC starter — edit model/view/controller.</p>
-				</header>
+		<div id="app" class="container stack stack-lg">
+			<header>
+				<h1>Project</h1>
+				<p>MVC starter — edit model/view/controller.</p>
+			</header>
 
-				<!-- View renders into #main -->
-				<main id="main" class="card"></main>
-			</div>
+			<!-- View renders into #main -->
+			<main id="main" class="card"></main>
 		</div>
 
 		<!-- Theme behavior (click handler — init already done in head) -->
