@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { loadScripts } from "./storyboard-harness.mjs";
+import { loadScripts, plain } from "./storyboard-harness.mjs";
 
 function freshRegistry() {
   const { evalIn } = loadScripts(["engine/registry.js"]);
@@ -18,7 +18,7 @@ test("addScreen registers and defaults states to ['default']", () => {
   const { Storyboard } = freshRegistry();
   Storyboard.addScreen(SCREEN());
   assert.equal(Storyboard.screens.length, 1);
-  assert.deepEqual(Storyboard.screens[0].states, ["default"]);
+  assert.deepEqual(plain(Storyboard.screens[0].states), ["default"]);
 });
 
 test("addScreen throws on duplicate id, bad id charset, empty states, missing render", () => {
@@ -49,8 +49,8 @@ test("escapeHtml escapes the five specials", () => {
 
 test("parseTarget / formatTarget round-trip", () => {
   const { parseTarget, formatTarget } = freshRegistry();
-  assert.deepEqual(parseTarget("plants@empty"), { screenId: "plants", stateId: "empty" });
-  assert.deepEqual(parseTarget("plants"), { screenId: "plants", stateId: null });
+  assert.deepEqual(plain(parseTarget("plants@empty")), { screenId: "plants", stateId: "empty" });
+  assert.deepEqual(plain(parseTarget("plants")), { screenId: "plants", stateId: null });
   assert.equal(parseTarget(""), null);
   assert.equal(parseTarget("a@b@c"), null);
   assert.equal(formatTarget({ screenId: "plants", stateId: "empty" }), "plants@empty");

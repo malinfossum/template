@@ -15,3 +15,10 @@ export function loadScripts(relPaths) {
   }
   return { ctx, evalIn: (expr) => vm.runInContext(expr, ctx) };
 }
+
+// vm objects live in a different realm — their prototypes differ from the
+// host's, so strict deepEqual fails on structurally-equal values. Normalize
+// vm-derived structures through JSON before deep comparison.
+export function plain(value) {
+  return JSON.parse(JSON.stringify(value));
+}
