@@ -10,7 +10,7 @@ One canonical home for reusable libraries and copy-to-start scaffolds. Libraries
 
 | Tier | What it is |
 |---|---|
-| [`libraries/`](./libraries) | Canonical, versioned, reused as-is: `design-system/` (and `storyboard/`, reserved) |
+| [`libraries/`](./libraries) | Canonical, versioned, reused as-is: `design-system/` and `storyboard/` |
 | [`scaffolds/`](./scaffolds) | Starters you copy once to begin a project, then own |
 | [`tools/`](./tools) | `extract.mjs` — copies libraries into consuming projects |
 | [`docs/`](./docs) | Specs, plans, and workbench notes |
@@ -45,6 +45,10 @@ One rule for consumers: exclude the copied `design-system/` from your formatter 
 ## Design system
 
 The canonical source of truth is [`libraries/design-system/`](./libraries/design-system) — tokens, primitives, components, compositions, utilities, theme, plus its own `gallery/` (live component browser) and `sandbox/`. It versions independently via its `VERSION` file. See its [README](./libraries/design-system/README.md) for principles and structure.
+
+## Storyboard
+
+[`libraries/storyboard/`](./libraries/storyboard) — clickable app mocks (screens, flows, states); design-first planning. Demo doubles as the starter. See its [README](./libraries/storyboard/README.md) for authoring and extraction.
 
 ## License
 
