@@ -23,11 +23,13 @@ test("dashboard links the key destinations", () => {
     "guide/#csharp-layered",
     "guide/#csharp-wpf",
     "docs/",
+    "libraries/storyboard/",
   ]) assert.ok(html.includes(href), `missing link: ${href}`);
 });
 
-test("disabled storyboard card is aria-disabled and has no href", () => {
-  assert.match(html, /aria-disabled="true"/);
+test("storyboard card links to the live demo", () => {
+  assert.ok(html.includes('href="./libraries/storyboard/"'), "missing storyboard link");
+  assert.doesNotMatch(html, /aria-disabled="true"/);
 });
 
 test("no-flash theme init and both-theme support present", () => {
