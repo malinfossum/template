@@ -55,3 +55,35 @@ test("parseTarget / formatTarget round-trip", () => {
   assert.equal(parseTarget("a@b@c"), null);
   assert.equal(formatTarget({ screenId: "plants", stateId: "empty" }), "plants@empty");
 });
+
+function freshModel() {
+  const { evalIn } = loadScripts(["engine/registry.js", "engine/model.js"]);
+  const Storyboard = evalIn("Storyboard");
+  Storyboard.addScreen({ id: "plants", label: "Plants", states: ["default", "empty"], render: () => "" });
+  Storyboard.addScreen({ id: "settings", label: "Settings", render: () => "" });
+  const createStoryboardModel = evalIn("createStoryboardModel");
+  return createStoryboardModel(Storyboard.screens);
+}
+
+test("model resolves unknown state to the screen's first state, unknown screen to null", () => {
+  const model = freshModel();
+  assert.deepEqual(plain(model.resolve({ screenId: "plants", stateId: "empty" })), { screenId: "plants", stateId: "empty" });
+  assert.deepEqual(plain(model.resolve({ screenId: "plants", stateId: "nope" })), { screenId: "plants", stateId: "default" });
+  assert.deepEqual(plain(model.resolve({ screenId: "plants", stateId: null })), { screenId: "plants", stateId: "default" });
+  assert.equal(model.resolve({ screenId: "nope", stateId: null }), null);
+  assert.deepEqual(plain(model.fallback()), { screenId: "plants", stateId: "default" });
+});
+
+test("model setActive notifies subscribers, no-ops on same target, rejects unknown", () => {
+  const model = freshModel();
+  let calls = 0;
+  model.subscribe(() => { calls += 1; });
+  assert.equal(model.setActive({ screenId: "plants", stateId: "empty" }), true);
+  assert.equal(calls, 1);
+  assert.deepEqual(plain(model.getCurrent()), { screenId: "plants", stateId: "empty" });
+  assert.equal(model.setActive({ screenId: "plants", stateId: "empty" }), true);
+  assert.equal(calls, 1, "same target must not notify");
+  assert.equal(model.setActive({ screenId: "nope", stateId: null }), false);
+  assert.equal(calls, 1);
+  assert.equal(model.getActiveScreen().label, "Plants");
+});
