@@ -19,3 +19,15 @@ test("real design-system extract copies lean parts, excludes gallery, records ve
   assert.match(anchor, /workbench-lib: design-system v1\.3\.0/);
   rmSync(target, { recursive: true, force: true });
 });
+
+test("real storyboard extract copies engine only and records version in engine/index.css", () => {
+  const target = mkdtempSync(join(tmpdir(), "wb-int-"));
+  const r = extract({ libraryName: "storyboard", workbenchRoot: WORKBENCH, targetDir: target });
+  assert.equal(r.status, "copied-fresh");
+  assert.ok(existsSync(join(target, "storyboard", "engine", "registry.js")));
+  assert.ok(!existsSync(join(target, "storyboard", "screens")), "demo screens must NOT be copied");
+  assert.ok(!existsSync(join(target, "storyboard", "index.html")), "demo index must NOT be copied");
+  const anchor = readFileSync(join(target, "storyboard", "engine", "index.css"), "utf8");
+  assert.match(anchor, /workbench-lib: storyboard v1\.0\.0/);
+  rmSync(target, { recursive: true, force: true });
+});

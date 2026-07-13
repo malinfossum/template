@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-palette="default">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        var root = document.documentElement;
+        root.dataset.theme = localStorage.getItem("theme") || "dark";
+        root.dataset.palette = localStorage.getItem("palette") || "default";
+      })();
+    </script>
+    <title>Frond — Storyboard demo</title>
+    <link rel="stylesheet" href="../design-system/tokens/index.css" />
+    <link rel="stylesheet" href="../design-system/base/reset.css" />
+    <link rel="stylesheet" href="../design-system/base/base.css" />
+    <link rel="stylesheet" href="../design-system/primitives/index.css" />
+    <link rel="stylesheet" href="../design-system/components/index.css" />
+    <link rel="stylesheet" href="../design-system/compositions/index.css" />
+    <link rel="stylesheet" href="../design-system/utilities/index.css" />
+    <link rel="stylesheet" href="./engine/index.css" />
+  </head>
+  <body>
+    <div id="status" class="sr-only" role="status" aria-live="polite"></div>
+    <div class="storyboard">
+      <aside class="sb-sidebar">
+        <span class="sb-brand">Frond <span class="text-muted">— storyboard</span></span>
+        <button class="btn btn-ghost" data-theme-toggle type="button">Theme</button>
+        <span class="sb-group-label" id="sb-nav-label">Screens</span>
+        <nav id="sb-nav" class="sb-nav" aria-labelledby="sb-nav-label"></nav>
+        <span class="sb-group-label" id="sb-flows-label">Flows</span>
+        <nav id="sb-flows" class="sb-flows" aria-labelledby="sb-flows-label"></nav>
+      </aside>
+      <main class="sb-main">
+        <header id="sb-screen-head" class="stack stack-sm"></header>
+        <div id="sb-viewport" class="sb-viewport" tabindex="-1"></div>
+      </main>
+    </div>
+    <script src="../design-system/theme/theme-toggle.js"></script>
+    <script src="engine/registry.js"></script>
+    <script src="data.js"></script>
+    <script src="screens/plants.js"></script>
+    <script src="screens/plant-detail.js"></script>
+    <script src="screens/add-plant.js"></script>
+    <script src="screens/settings.js"></script>
+    <script src="flows.js"></script>
+    <script src="engine/model.js"></script>
+    <script src="engine/view.js"></script>
+    <script src="engine/controller.js"></script>
+    <script src="engine/app.js"></script>
+  </body>
+</html>

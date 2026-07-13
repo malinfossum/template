@@ -10,7 +10,7 @@ One canonical home for reusable libraries and copy-to-start scaffolds. Libraries
 
 | Tier | What it is |
 |---|---|
-| [`libraries/`](./libraries) | Canonical, versioned, reused as-is: `design-system/` (and `storyboard/`, reserved) |
+| [`libraries/`](./libraries) | Canonical, versioned, reused as-is: `design-system/` and `storyboard/` |
 | [`scaffolds/`](./scaffolds) | Starters you copy once to begin a project, then own |
 | [`tools/`](./tools) | `extract.mjs` — copies libraries into consuming projects |
 | [`docs/`](./docs) | Specs, plans, and workbench notes |
