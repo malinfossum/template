@@ -2,9 +2,9 @@
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	min-height: 2.75rem;
+	min-height: 2.625rem;
 	padding-inline: var(--space-4);
-	border-radius: var(--radius-md);
+	border-radius: var(--radius-sm);
 	border: 1px solid var(--border);
 	background: var(--interactive-bg);
 	color: var(--text);
@@ -46,6 +46,6 @@
 	width: 100%;
 }
 .icon-btn {
-	width: 2.75rem;
+	width: 2.625rem;
 	padding: 0;
 }

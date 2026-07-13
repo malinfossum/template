@@ -40,3 +40,38 @@ test("base headings and stat numbers carry the display face", () => {
 	assert.match(base, /h1,\nh2 \{\n\tletter-spacing: var\(--tracking-display\);\n\}/);
 	assert.match(read("components/stat.css"), /\.stat-value \{[^}]*font-family: var\(--font-display\);/s);
 });
+
+test("radius scale is the crisp remap", () => {
+	const css = read("tokens/radius.css");
+	for (const [token, value] of Object.entries({
+		"--radius-xs": "0.25rem",
+		"--radius-sm": "0.375rem",
+		"--radius-md": "0.5rem",
+		"--radius-lg": "0.75rem",
+		"--radius-xl": "1rem",
+		"--radius-pill": "999px",
+	})) {
+		assert.ok(css.includes(`${token}: ${value};`), `${token} should be ${value}`);
+	}
+});
+
+test("components sit on the right radius size class", () => {
+	for (const [file, token] of [
+		["components/badge.css", "--radius-xs"],
+		["components/button.css", "--radius-sm"],
+		["components/input.css", "--radius-sm"],
+		["components/card.css", "--radius-md"],
+		["components/table.css", "--radius-md"],
+		["components/alert.css", "--radius-md"],
+		["components/modal.css", "--radius-lg"],
+	]) {
+		assert.ok(read(file).includes(`border-radius: var(${token})`), `${file} should use ${token}`);
+	}
+});
+
+test("interactive controls are 42px", () => {
+	for (const file of ["components/button.css", "components/input.css", "components/tabs.css"]) {
+		assert.ok(read(file).includes("min-height: 2.625rem"), `${file} control height should be 2.625rem`);
+	}
+	assert.ok(read("components/button.css").includes("width: 2.625rem"), "icon-btn width should match");
+});
