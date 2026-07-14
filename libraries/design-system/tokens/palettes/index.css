@@ -9,7 +9,8 @@
 @import url("./daily.css");
 @import url("./ignite.css");
 
-/* Type skins — opt-in via <html data-typeskin="NAME">; compose with any palette. */
+/* Type skins — opt-in via <html data-typeskin="NAME">; compose with any palette.
+   Imported after palettes so a skin's type tokens win on specificity ties (order decides). */
 @import url("./fraunces.css");
 @import url("./instrument.css");
 @import url("./nordic.css");

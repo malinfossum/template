@@ -14,7 +14,7 @@ const SWATCHES = [
   "--danger",
   "--info",
 ];
-const RADII = ["--radius-sm", "--radius-md", "--radius-lg", "--radius-xl"];
+const RADII = ["--radius-xs", "--radius-sm", "--radius-md", "--radius-lg", "--radius-xl"];
 const SPACES = ["--space-2", "--space-3", "--space-4", "--space-5", "--space-6", "--space-7"];
 
 // Panel header: eyebrow kicker + big title + optional description.

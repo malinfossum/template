@@ -125,7 +125,7 @@ test("solid primary button meets 4.5:1 in every theme and palette", () => {
 		if (Object.keys(light).length > 0) {
 			scopes.push({
 				label: `palette ${file} (light)`,
-				layers: [light, dark, blockVars(colors, /:root\[data-theme="light"\]/), blockVars(colors, /:root \{/)],
+				layers: [light, blockVars(colors, /:root\[data-theme="light"\]/), dark, blockVars(colors, /:root \{/)],
 			});
 		}
 	}
