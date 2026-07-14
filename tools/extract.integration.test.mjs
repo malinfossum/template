@@ -7,6 +7,10 @@ import { extract } from "./extract.mjs";
 
 const WORKBENCH = resolve(import.meta.dirname, "..");
 
+function canonicalVersion(library) {
+  return readFileSync(join(WORKBENCH, "libraries", library, "VERSION"), "utf8").trim();
+}
+
 test("real design-system extract copies lean parts, excludes gallery, records version", () => {
   const target = mkdtempSync(join(tmpdir(), "wb-int-"));
   const r = extract({ libraryName: "design-system", workbenchRoot: WORKBENCH, targetDir: target });
@@ -16,7 +20,10 @@ test("real design-system extract copies lean parts, excludes gallery, records ve
   assert.ok(!existsSync(join(target, "design-system", "gallery")), "gallery must NOT be copied");
   assert.ok(!existsSync(join(target, "design-system", "docs")), "docs must NOT be copied");
   const anchor = readFileSync(join(target, "design-system", "tokens", "index.css"), "utf8");
-  assert.match(anchor, /workbench-lib: design-system v1\.3\.0/);
+  assert.ok(
+    anchor.includes(`workbench-lib: design-system v${canonicalVersion("design-system")}`),
+    "anchor header must record the canonical library version",
+  );
   rmSync(target, { recursive: true, force: true });
 });
 
@@ -28,6 +35,9 @@ test("real storyboard extract copies engine only and records version in engine/i
   assert.ok(!existsSync(join(target, "storyboard", "screens")), "demo screens must NOT be copied");
   assert.ok(!existsSync(join(target, "storyboard", "index.html")), "demo index must NOT be copied");
   const anchor = readFileSync(join(target, "storyboard", "engine", "index.css"), "utf8");
-  assert.match(anchor, /workbench-lib: storyboard v1\.0\.0/);
+  assert.ok(
+    anchor.includes(`workbench-lib: storyboard v${canonicalVersion("storyboard")}`),
+    "anchor header must record the canonical library version",
+  );
   rmSync(target, { recursive: true, force: true });
 });
