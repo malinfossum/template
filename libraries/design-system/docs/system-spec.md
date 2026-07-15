@@ -38,10 +38,12 @@ A calm, reusable standard for static websites, MVC apps, dashboards, and small g
 - `--space-9` 80px
 
 ## Radius scale
-- `--radius-sm` 8px
-- `--radius-md` 12px
-- `--radius-lg` 16px
-- `--radius-xl` 24px
+- `--radius-xs` 0.25rem (4px) — badges, chips
+- `--radius-sm` 0.375rem (6px) — buttons, inputs
+- `--radius-md` 0.5rem (8px) — cards
+- `--radius-lg` 0.75rem (12px) — modals
+- `--radius-xl` 1rem (16px) — hero surfaces
+- `--radius-pill` 999px
 
 ## Typography roles
 - hero title → `--text-4xl`
