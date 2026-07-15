@@ -5,7 +5,8 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const DS = join(dirname(fileURLToPath(import.meta.url)), "..", "libraries", "design-system");
-export const read = (p) => readFileSync(join(DS, p), "utf8");
+// Normalize CRLF so content assertions hold on Windows checkouts (core.autocrlf).
+export const read = (p) => readFileSync(join(DS, p), "utf8").replaceAll("\r\n", "\n");
 
 test("every @font-face src resolves to a bundled real woff2", () => {
 	const css = read("tokens/typography.css");
