@@ -3,3 +3,13 @@
 
 # Force LF for shell scripts — required so bash shebangs work on Linux/Mac
 *.sh text eol=lf
+
+# Force LF for web/text sources everywhere, including Windows checkouts —
+# tests that assert on file content match \n, and autocrlf CRLF checkouts
+# broke two of them at v2.3.0. LF in the working tree ends that class of bug.
+*.css text eol=lf
+*.js text eol=lf
+*.mjs text eol=lf
+*.html text eol=lf
+*.md text eol=lf
+*.json text eol=lf
