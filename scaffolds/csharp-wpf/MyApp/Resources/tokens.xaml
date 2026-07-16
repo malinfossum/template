@@ -9,9 +9,9 @@
        identity 2.0.0: crisp shape (6px controls, 42px control height),
        solid primary button, heading weight 600.
        Edit the palette per project; keep the keys stable.
-       Fonts: the web identity is Sora (display) + Figtree (body); WPF
-       needs embedded TTFs for that — follow-up. Until then the mirror
-       keeps the Segoe stack.
+       Fonts: Sora (display) + Figtree (body) are embedded as static TTFs
+       in Resources/Fonts (OFL licenses alongside), matching the web
+       identity; Segoe remains the fallback stack.
        ==================================================================== -->
 
   <!-- Surfaces (design-system surface scale 1..5) -->
@@ -70,7 +70,8 @@
   <sys:Double x:Key="ControlHeight">42</sys:Double>
 
   <!-- Typography (design-system text scale) -->
-  <FontFamily x:Key="FontSans">Segoe UI Variable, Segoe UI, sans-serif</FontFamily>
+  <FontFamily x:Key="FontSans">pack://application:,,,/Resources/Fonts/#Figtree, Segoe UI Variable, Segoe UI, sans-serif</FontFamily>
+  <FontFamily x:Key="FontDisplay">pack://application:,,,/Resources/Fonts/#Sora, Segoe UI Variable, Segoe UI, sans-serif</FontFamily>
   <FontFamily x:Key="FontMono">Cascadia Mono, Consolas, monospace</FontFamily>
   <FontWeight x:Key="HeadingWeight">SemiBold</FontWeight>  <!-- identity 2.0.0: headings 600, not 700 -->
   <sys:Double x:Key="TextXs">12</sys:Double>

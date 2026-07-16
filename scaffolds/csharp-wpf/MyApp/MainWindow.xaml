@@ -4,6 +4,7 @@
         Title="App"
         MinWidth="400" MinHeight="280"
         Width="560" Height="360"
+        FontFamily="{StaticResource FontSans}"
         Background="{StaticResource PageBg}">
 
   <!-- Resize-tolerant layout: star-sized rows, no fixed pixels for content. -->
@@ -16,6 +17,8 @@
 
     <TextBlock Grid.Row="0"
                Text="App"
+               FontFamily="{StaticResource FontDisplay}"
+               FontWeight="{StaticResource HeadingWeight}"
                FontSize="{StaticResource Text2xl}"
                Foreground="{StaticResource Text}"/>
 
