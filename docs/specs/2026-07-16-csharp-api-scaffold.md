@@ -75,11 +75,11 @@ scaffolds/csharp-api/
 │   ├── Program.cs               # DI wiring, middleware pipeline — no logic
 │   ├── App.Api.http             # ready-made requests for every endpoint
 │   ├── appsettings.json         # ConnectionStrings:Default = Data Source=app.db
-│   ├── Controllers/NotesController.cs
-│   └── Dtos/                    # NoteDto, CreateNoteDto, UpdateNoteDto (records)
+│   └── Controllers/NotesController.cs
 ├── App.Core/
 │   ├── App.Core.csproj          # no references, no IO — same rule as csharp-layered
 │   ├── Models/Note.cs
+│   ├── Dtos/NoteDtos.cs         # NoteDto, CreateNoteDto, UpdateNoteDto (records) — Core owns the contract; the service maps, so DTOs can't live in Api
 │   ├── Interfaces/INoteRepository.cs
 │   └── Services/NoteService.cs  # rules + DTO mapping; depends on INoteRepository
 ├── App.Data/
