@@ -1,0 +1,27 @@
+# Visual Studio workspace cache (per-machine, not source)
+.vs/
+*.user
+*.suo
+
+# Build output
+bin/
+obj/
+
+# Publish output
+publish/
+*.publishsettings
+
+# Rider / JetBrains (in case you ever switch)
+.idea/
+
+# OS junk
+Thumbs.db
+.DS_Store
+
+# SQLite database — real data must never be committed (spec §6)
+# WAL mode also writes -wal/-shm sidecar files that can hold uncommitted data (-journal in rollback mode).
+app.db
+*.db
+*.db-shm
+*.db-wal
+*.db-journal
