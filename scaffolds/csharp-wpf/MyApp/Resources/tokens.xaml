@@ -5,8 +5,13 @@
   <!-- ====================================================================
        tokens.xaml — design-system mirror for WPF
        Colours, spacing, radius, typography, and motion mirror the
-       canonical web design-system (libraries/design-system/tokens/).
+       canonical web design-system (libraries/design-system/tokens/),
+       identity 2.0.0: crisp shape (6px controls, 42px control height),
+       solid primary button, heading weight 600.
        Edit the palette per project; keep the keys stable.
+       Fonts: the web identity is Sora (display) + Figtree (body); WPF
+       needs embedded TTFs for that — follow-up. Until then the mirror
+       keeps the Segoe stack.
        ==================================================================== -->
 
   <!-- Surfaces (design-system surface scale 1..5) -->
@@ -37,6 +42,13 @@
   <SolidColorBrush x:Key="Info"         Color="#7F92A3"/>
   <SolidColorBrush x:Key="FocusRing"    Color="#6190ADC5"/>  <!-- 38% -->
 
+  <!-- Solid-button ink (identity 2.0.0): fill + text of the primary action
+       only. Derives from the accent; override per project if the accent
+       goes mid-tone. -->
+  <SolidColorBrush x:Key="AccentSolid"       Color="#7C9AB3"/>
+  <SolidColorBrush x:Key="AccentSolidStrong" Color="#90ADC5"/>
+  <SolidColorBrush x:Key="OnAccent"          Color="#0A0D10"/>
+
   <!-- Spacing (DIP; design-system space scale) -->
   <sys:Double x:Key="Space1">4</sys:Double>
   <sys:Double x:Key="Space2">8</sys:Double>
@@ -46,14 +58,21 @@
   <sys:Double x:Key="Space6">32</sys:Double>
   <Thickness x:Key="CardPadding">16</Thickness>
 
-  <!-- Radius (design-system radius sm/md/lg) -->
-  <CornerRadius x:Key="RadiusSm">8</CornerRadius>
-  <CornerRadius x:Key="RadiusMd">12</CornerRadius>
-  <CornerRadius x:Key="RadiusLg">16</CornerRadius>
+  <!-- Radius (design-system radius scale, identity 2.0.0 crisp shape:
+       badges 4, buttons/inputs 6, cards 8, modals 12) -->
+  <CornerRadius x:Key="RadiusXs">4</CornerRadius>
+  <CornerRadius x:Key="RadiusSm">6</CornerRadius>
+  <CornerRadius x:Key="RadiusMd">8</CornerRadius>
+  <CornerRadius x:Key="RadiusLg">12</CornerRadius>
+  <CornerRadius x:Key="RadiusXl">16</CornerRadius>
+
+  <!-- Control height (identity 2.0.0) -->
+  <sys:Double x:Key="ControlHeight">42</sys:Double>
 
   <!-- Typography (design-system text scale) -->
   <FontFamily x:Key="FontSans">Segoe UI Variable, Segoe UI, sans-serif</FontFamily>
   <FontFamily x:Key="FontMono">Cascadia Mono, Consolas, monospace</FontFamily>
+  <FontWeight x:Key="HeadingWeight">SemiBold</FontWeight>  <!-- identity 2.0.0: headings 600, not 700 -->
   <sys:Double x:Key="TextXs">12</sys:Double>
   <sys:Double x:Key="TextSm">14</sys:Double>
   <sys:Double x:Key="TextMd">16</sys:Double>
@@ -76,7 +95,7 @@
     <Setter Property="Control.Template">
       <Setter.Value>
         <ControlTemplate>
-          <Border CornerRadius="8" BorderThickness="1.5"
+          <Border CornerRadius="6" BorderThickness="1.5"
                   BorderBrush="{StaticResource AccentStrong}" Margin="-1.5"/>
         </ControlTemplate>
       </Setter.Value>
@@ -89,13 +108,14 @@
     <Setter Property="Foreground" Value="{StaticResource Text}"/>
     <Setter Property="BorderBrush" Value="{StaticResource Border}"/>
     <Setter Property="BorderThickness" Value="1"/>
-    <Setter Property="Padding" Value="10,6"/>
+    <Setter Property="Padding" Value="12,6"/>
+    <Setter Property="MinHeight" Value="{StaticResource ControlHeight}"/>
     <Setter Property="FontSize" Value="{StaticResource TextSm}"/>
     <Setter Property="Cursor" Value="Hand"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="Button">
-          <Border x:Name="b" CornerRadius="8"
+          <Border x:Name="b" CornerRadius="6"
                   BorderBrush="{TemplateBinding BorderBrush}"
                   BorderThickness="{TemplateBinding BorderThickness}"
                   Padding="{TemplateBinding Padding}">
@@ -140,15 +160,17 @@
   <!-- Primary action: the one accent button per surface. -->
   <Style x:Key="PrimaryAction" TargetType="Button">
     <Setter Property="FocusVisualStyle" Value="{StaticResource ActionFocusVisual}"/>
-    <Setter Property="Foreground" Value="{StaticResource PageBg}"/>
+    <Setter Property="Foreground" Value="{StaticResource OnAccent}"/>
+    <Setter Property="FontWeight" Value="{StaticResource HeadingWeight}"/>
     <Setter Property="BorderThickness" Value="0"/>
     <Setter Property="Padding" Value="14,7"/>
+    <Setter Property="MinHeight" Value="{StaticResource ControlHeight}"/>
     <Setter Property="FontSize" Value="{StaticResource TextSm}"/>
     <Setter Property="Cursor" Value="Hand"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="Button">
-          <Border x:Name="b" CornerRadius="8" Padding="{TemplateBinding Padding}">
+          <Border x:Name="b" CornerRadius="6" Padding="{TemplateBinding Padding}">
             <Border.Background><SolidColorBrush Color="#7C9AB3"/></Border.Background>
             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
           </Border>
@@ -178,7 +200,7 @@
     <Setter Property="Background" Value="{StaticResource InteractiveBg}"/>
     <Setter Property="Foreground" Value="{StaticResource Text}"/>
     <Setter Property="CaretBrush" Value="{StaticResource Text}"/>
-    <Setter Property="MinHeight" Value="34"/>
+    <Setter Property="MinHeight" Value="{StaticResource ControlHeight}"/>
     <Setter Property="BorderBrush" Value="{StaticResource Border}"/>
     <Setter Property="BorderThickness" Value="1"/>
     <Setter Property="Padding" Value="8,6"/>
@@ -188,7 +210,7 @@
         <ControlTemplate TargetType="TextBox">
           <Border x:Name="bd" Background="{TemplateBinding Background}"
                   BorderBrush="{TemplateBinding BorderBrush}"
-                  BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="8">
+                  BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6">
             <Grid>
               <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}"
                             VerticalAlignment="Center"/>
