@@ -15,7 +15,7 @@ builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
 builder.Services.AddOpenApi();
 builder.Services.AddCors(options => options.AddPolicy("dev", policy =>
-    policy.SetIsOriginAllowed(origin => new Uri(origin).IsLoopback)
+    policy.SetIsOriginAllowed(origin => Uri.TryCreate(origin, UriKind.Absolute, out var uri) && uri.IsLoopback)
         .AllowAnyHeader()
         .AllowAnyMethod()));
 

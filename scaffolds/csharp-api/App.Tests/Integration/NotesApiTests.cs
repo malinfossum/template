@@ -46,6 +46,9 @@ public class NotesApiTests(ApiFactory factory) : IClassFixture<ApiFactory>
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         var updated = await response.Content.ReadFromJsonAsync<NoteDto>();
         Assert.Equal("New", updated!.Title);
+
+        var persisted = await _client.GetFromJsonAsync<NoteDto>($"/api/notes/{created.Id}");
+        Assert.Equal("New", persisted!.Title);
     }
 
     [Fact]

@@ -31,5 +31,5 @@ EF Core + SQLite, and xUnit already wired.
 ## What's deliberately not here
 
 - No DI container — add `Microsoft.Extensions.DependencyInjection` when the project earns it.
-- No API project — add on demand.
+- No API project — see "Adding an API project later".
 - No async, no JSON serialization — added per project.
