@@ -27,7 +27,12 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();          // JSON spec at /openapi/v1.json — dev only
     app.UseCors("dev");        // any localhost origin — dev only (spec §4)
 }
-app.UseHttpsRedirection();
+else
+{
+    // Dev runs plain http on the default profile (use the https profile to opt in);
+    // real hosts always redirect.
+    app.UseHttpsRedirection();
+}
 app.MapControllers();
 
 app.Run();
